@@ -1,0 +1,33 @@
+- initialize game
+    - create variables
+    - explain rules
+    - create boards
+    - choose 1 or 2 players
+- create computer ships
+    - randomly select location for ship
+    - check if it overlaps
+    - repeat * 5
+- create player ships (for initial troubleshooting this should also be computer)
+    - player selects where to place each ship
+    - check if it overlaps
+    - repeat * 5
+- battle
+    - player picks shot
+    - check if is hit or miss and output
+    - store hit value (this will be tricky)
+    - computer randomly picks shot (random at first but could add strategy later)
+    - check if is hit or miss and output
+    - store hit value (this will be tricky)
+    - check for if game is over
+- finish
+    - thank you for playing
+    - add a loop to repeat
+- tools to use
+    - the whole game should be in a while loop
+    - board should be a 2d array
+    - ships should use inheritance?
+    - creating player and computer ships should both use loops
+    - in fact everything should be a loop to account for stupid players
+    - how do i check if ships have been sunk
+
+
