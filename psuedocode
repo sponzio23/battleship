@@ -4,9 +4,10 @@
     - create boards
     - choose 1 or 2 players
 - create computer ships
-    - randomly select location for ship
-    - check if it overlaps
-    - repeat * 5
+    - for loop for number of ships to place
+    - for each ship, pick random coordinates on a 10/10 grid
+    - check if that coordinate is taken, if is repeat
+    - if not set that coordinate to a 1
 - create player ships (for initial troubleshooting this should also be computer)
     - player selects where to place each ship
     - check if it overlaps
