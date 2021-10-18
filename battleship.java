@@ -1,5 +1,3 @@
-// key for values in ship arrays: 0 is empty, 1 is ship, 2 is shot, 3 is
-
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
@@ -21,15 +19,14 @@ public class battleship {
     public static int[][] compShips;
 
     public static void main(String[] args) {
-        setVars();
+        rules();
         newline();
 
-        rules();
+        setVars();
         newline();
 
         placeCompShips();
         newline();
-
         placePlayerShips();
         newline();
 
@@ -39,10 +36,11 @@ public class battleship {
         compShot();
         newline();
 
-        printArray(playerShips);
+        printArray(playerBoard);
+        newline();
     }
 
-    static void newline() {
+    static void newline(){
         System.out.print("\n");
     }
 
@@ -52,49 +50,11 @@ public class battleship {
         }
     }
 
-    static void setVars(){
-        System.out.println("How many rows would you like the board to have?");
-        while (!varScanner.hasNextInt()) {
-            System.out.println("Please enter a number");
-            varScanner.next();
-        }
-        numRows = Math.abs(varScanner.nextInt());
-
-        System.out.println("How many columns would you like the board to have?");
-        while (!varScanner.hasNextInt()){
-            System.out.println("Please enter a number");
-            varScanner.next();
-        }
-        numCols = Math.abs(varScanner.nextInt());
-
-        System.out.println("How many ships would you like each player to have?");
-        while (!varScanner.hasNextInt()) { // add something along the lines of
-            // && varScanner.nextInt() > (numCols * numRows)
-            System.out.println("Please enter a number less than the number of spaces on the board");
-            varScanner.next();
-        }
-        numShips = Math.abs(varScanner.nextInt());
-
-        System.out.println("How many shots would you like each player to get each round?");
-        while (!varScanner.hasNextInt()) { // add something along the lines of
-            // && varScanner.nextInt() > (numCols * numRows)
-            System.out.println("Please enter a number less than the number of spaces on the board");
-            varScanner.next();
-        }
-        numShots = Math.abs(varScanner.nextInt());
-
-
-        playerBoard = new int[numRows][numCols];
-        playerShips = new int[numRows][numCols];
-        compBoard = new int[numRows][numCols];
-        compShips = new int[numRows][numCols];
-    }
-
     static void rules() {
         boolean rulesDone = false;
-        System.out.println("Would you like to hear the rules? y/n"); // prompt for input
+        System.out.println("Would you like to hear the rules? y/n");
         while (!rulesDone) {
-            String printRules = rulesScanner.nextLine(); // reads user input
+            String printRules = rulesScanner.nextLine();
             if (printRules.equals("y")) {
                 System.out.println("RULES PLACEHOLDER");
                 rulesDone = true;
@@ -104,6 +64,89 @@ public class battleship {
                 System.out.println("Invalid input, please try again. Respond with y or n ONLY.");
             }
         }
+    }
+
+    static void setVars(){
+        boolean rowChoiceDone = false;
+        System.out.println("How many rows would you like the board to have? Please enter a number " +
+                "greater than or equal to 3.");
+        while(!rowChoiceDone){
+            while (!varScanner.hasNextInt()) {
+                System.out.println("Please enter a number.");
+                varScanner.next();
+            }
+            numRows = Math.abs(varScanner.nextInt());
+            if (numRows >= 3){
+                System.out.println("Set the number of rows to " + numRows);
+                rowChoiceDone = true;
+            }
+            else{
+                System.out.println("Please enter a number greater than or equal to 3.");
+            }
+        }
+
+        boolean columnChoiceDone = false;
+        System.out.println("How many columns would you like the board to have? Please enter a number " +
+                "greater than or equal to 3.");
+        while(!columnChoiceDone){
+            while (!varScanner.hasNextInt()) {
+                System.out.println("Please enter a number.");
+                varScanner.next();
+            }
+            numCols = Math.abs(varScanner.nextInt());
+            if (numCols >= 3){
+                System.out.println("Set the number of rows to " + numCols);
+                columnChoiceDone = true;
+            }
+            else{
+                System.out.println("Please enter a number greater than or equal to 3.");
+            }
+        }
+
+        System.out.println("How many ships would you like the board to have? Choose 3, 5, or 7.");
+        boolean shipChoiceDone = false;
+        while(!shipChoiceDone){
+            while (!varScanner.hasNextInt()) {
+                System.out.println("Please enter a number");
+                varScanner.next();
+            }
+            numShips = Math.abs(varScanner.nextInt());
+
+            // probably doesn't make sense to use a switch here, but I'm doing it for skill building
+            switch (numShips) {
+                case 3, 5, 7 -> {
+                    System.out.println("Number of ships set to " + numShips);
+                    shipChoiceDone = true;
+                }
+                default -> System.out.println("Please enter one of the options.");
+            }
+        }
+
+        System.out.println("How many shots would you like each player to have? Choose 1, 3, or 5.");
+        boolean shotChoiceDone = false;
+        while(!shotChoiceDone){
+            while (!varScanner.hasNextInt()) {
+                System.out.println("Please enter a number");
+                varScanner.next();
+            }
+            numShots = Math.abs(varScanner.nextInt());
+
+            switch (numShots) {
+                case 1, 3, 5 -> {
+                    System.out.println("Number of shots set to " + numShots);
+                    shotChoiceDone = true;
+                }
+                default -> System.out.println("Please enter one of the options.");
+            }
+        }
+
+
+
+
+        playerBoard = new int[numRows][numCols];
+        playerShips = new int[numRows][numCols];
+        compBoard = new int[numRows][numCols];
+        compShips = new int[numRows][numCols];
     }
 
     static void placeCompShips() {
