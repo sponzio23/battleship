@@ -18,33 +18,45 @@ public class battleship {
     public static int[][] compBoard;
     public static int[][] compShips;
 
+    public static boolean gameDone = false;
+    public static String winner = null;
+    public static boolean playerShipsLeft = false;
+    public static boolean compShipsLeft = false;
+
     public static void main(String[] args) {
         rules();
-        newline();
-
         setVars();
-        newline();
-
         placeCompShips();
-        newline();
-        placePlayerShips();
-        newline();
+        while (!gameDone) {
+            printArray(compShips); // this is for testing remove later
+            autoWin();
+            printArray(compShips);
+            checkWin();
+            gameDone = true;
+        }
+        System.out.println("Game over, thank you for playing. The " + winner + " won!");
 
-        playerShot();
-        newline();
 
-        compShot();
-        newline();
-
-        printArray(playerBoard);
-        newline();
     }
 
-    static void newline(){
+    static void newline() {
         System.out.print("\n");
     }
 
-    static void printArray(int[][] input){
+    static void printArray(int[][] input) {
+        if (input == playerBoard){
+            System.out.println("Printing the player's board");
+        }
+        else if (input == compBoard){
+            System.out.println("Printing the computer's board");
+        }
+        else if (input == compShips){
+            System.out.println("Printing the computer's ships (DEBUG INFO)");
+        }
+        else if (input == playerShips){
+            System.out.println("Printing the player's ships (DEBUG INFO)");
+        }
+
         for (int[] row : input) {
             System.out.println(Arrays.toString(row));
         }
@@ -53,7 +65,7 @@ public class battleship {
     static void rules() {
         boolean rulesDone = false;
         System.out.println("Would you like to hear the rules? y/n");
-        while (!rulesDone) {
+        while(!rulesDone) {
             String printRules = rulesScanner.nextLine();
             if (printRules.equals("y")) {
                 System.out.println("RULES PLACEHOLDER");
@@ -66,82 +78,96 @@ public class battleship {
         }
     }
 
-    static void setVars(){
-        boolean rowChoiceDone = false;
-        System.out.println("How many rows would you like the board to have? Please enter a number " +
-                "greater than or equal to 3.");
-        while(!rowChoiceDone){
-            while (!varScanner.hasNextInt()) {
-                System.out.println("Please enter a number.");
-                varScanner.next();
+    static void setVars() {
+        boolean varsDone = false;
+        System.out.println("Would you like to use the default values? y/n");
+        while(!varsDone){
+            String useDefaultVars = varScanner.nextLine();
+            if (useDefaultVars.equals("y")){
+                numRows = 3;
+                numCols = 3;
+                numShips = 3;
+                numShots = 1;
+                varsDone = true;
             }
-            numRows = Math.abs(varScanner.nextInt());
-            if (numRows >= 3){
-                System.out.println("Set the number of rows to " + numRows);
-                rowChoiceDone = true;
+            else if (useDefaultVars.equals("n")){
+                boolean rowChoiceDone = false;
+                System.out.println("How many rows would you like the board to have? Please enter a number " +
+                        "greater than or equal to 3.");
+                while (!rowChoiceDone) {
+                    while (!varScanner.hasNextInt()) {
+                        System.out.println("Please enter a number.");
+                        varScanner.next();
+                    }
+                    numRows = Math.abs(varScanner.nextInt());
+                    if (numRows >= 3) {
+                        System.out.println("Set the number of rows to " + numRows);
+                        rowChoiceDone = true;
+                    } else {
+                        System.out.println("Please enter a number greater than or equal to 3.");
+                    }
+                }
+
+                boolean columnChoiceDone = false;
+                System.out.println("How many columns would you like the board to have? Please enter a number " +
+                        "greater than or equal to 3.");
+                while (!columnChoiceDone) {
+                    while (!varScanner.hasNextInt()) {
+                        System.out.println("Please enter a number.");
+                        varScanner.next();
+                    }
+                    numCols = Math.abs(varScanner.nextInt());
+                    if (numCols >= 3) {
+                        System.out.println("Set the number of columns to " + numCols);
+                        columnChoiceDone = true;
+                    } else {
+                        System.out.println("Please enter a number greater than or equal to 3.");
+                    }
+                }
+
+                boolean shipChoiceDone = false;
+                System.out.println("How many ships would you like the board to have? Choose 3, 5, or 7.");
+                while (!shipChoiceDone) {
+                    while (!varScanner.hasNextInt()) {
+                        System.out.println("Please enter a number");
+                        varScanner.next();
+                    }
+                    numShips = Math.abs(varScanner.nextInt());
+
+                    // probably doesn't make sense to use a switch here, but I'm doing it for skill building
+                    switch (numShips) {
+                        case 3, 5, 7 -> {
+                            System.out.println("Number of ships set to " + numShips);
+                            shipChoiceDone = true;
+                        }
+                        default -> System.out.println("Please enter one of the options.");
+                    }
+                }
+
+                boolean shotChoiceDone = false;
+                System.out.println("How many shots would you like each player to have? Choose 1, 3, or 5.");
+                while (!shotChoiceDone) {
+                    while (!varScanner.hasNextInt()) {
+                        System.out.println("Please enter a number");
+                        varScanner.next();
+                    }
+                    numShots = Math.abs(varScanner.nextInt());
+
+                    switch (numShots) {
+                        case 1, 3, 5 -> {
+                            System.out.println("Number of shots set to " + numShots);
+                            shotChoiceDone = true;
+                        }
+                        default -> System.out.println("Please enter one of the options.");
+                    }
+                }
+
+                varsDone = true;
             }
             else{
-                System.out.println("Please enter a number greater than or equal to 3.");
+                System.out.println("Invalid input, please try again. Respond with y or n ONLY.");
             }
         }
-
-        boolean columnChoiceDone = false;
-        System.out.println("How many columns would you like the board to have? Please enter a number " +
-                "greater than or equal to 3.");
-        while(!columnChoiceDone){
-            while (!varScanner.hasNextInt()) {
-                System.out.println("Please enter a number.");
-                varScanner.next();
-            }
-            numCols = Math.abs(varScanner.nextInt());
-            if (numCols >= 3){
-                System.out.println("Set the number of rows to " + numCols);
-                columnChoiceDone = true;
-            }
-            else{
-                System.out.println("Please enter a number greater than or equal to 3.");
-            }
-        }
-
-        System.out.println("How many ships would you like the board to have? Choose 3, 5, or 7.");
-        boolean shipChoiceDone = false;
-        while(!shipChoiceDone){
-            while (!varScanner.hasNextInt()) {
-                System.out.println("Please enter a number");
-                varScanner.next();
-            }
-            numShips = Math.abs(varScanner.nextInt());
-
-            // probably doesn't make sense to use a switch here, but I'm doing it for skill building
-            switch (numShips) {
-                case 3, 5, 7 -> {
-                    System.out.println("Number of ships set to " + numShips);
-                    shipChoiceDone = true;
-                }
-                default -> System.out.println("Please enter one of the options.");
-            }
-        }
-
-        System.out.println("How many shots would you like each player to have? Choose 1, 3, or 5.");
-        boolean shotChoiceDone = false;
-        while(!shotChoiceDone){
-            while (!varScanner.hasNextInt()) {
-                System.out.println("Please enter a number");
-                varScanner.next();
-            }
-            numShots = Math.abs(varScanner.nextInt());
-
-            switch (numShots) {
-                case 1, 3, 5 -> {
-                    System.out.println("Number of shots set to " + numShots);
-                    shotChoiceDone = true;
-                }
-                default -> System.out.println("Please enter one of the options.");
-            }
-        }
-
-
-
 
         playerBoard = new int[numRows][numCols];
         playerShips = new int[numRows][numCols];
@@ -260,6 +286,45 @@ public class battleship {
                     playerShips[shotRow][shotCol] = 2;
                     compBoard[shotRow][shotCol] = 2;
                     System.out.println("The computer missed!");
+                }
+            }
+        }
+    }
+
+    static void checkWin() {
+        gameDone = true;
+        for (int[] row : playerShips) {
+            for (int num : row) {
+                if (num == 1) {
+                    playerShipsLeft = true;
+                    gameDone = false;
+                    break;
+                }
+            }
+        }
+        for (int[] row : compShips) {
+            for (int num : row) {
+                if (num == 1) {
+                    compShipsLeft = true;
+                    gameDone = false;
+                    break;
+                }
+            }
+        }
+        if (compShipsLeft && !playerShipsLeft){
+            winner = "computer";
+        }
+        else  if (playerShipsLeft && !compShipsLeft){
+            winner = "player";
+        }
+        }
+
+    static void autoWin(){ // this is purely for testing purposes
+        System.out.println("Cheating at the game.");
+        for (int r = 0; r < playerShips.length; r++) {
+            for (int c = 0; c < playerShips[r].length; c++) {
+                if (playerShips[r][c] == 1){
+                    playerShips[r][c] = 3;
                 }
             }
         }

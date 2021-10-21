@@ -1,17 +1,20 @@
-- initialize game
+- initialize game (DONE)
     - create variables
-    - explain rules
+    - explain rules (not quite finished)
     - create boards
     - choose 1 or 2 players
-- create computer ships
+
+- create computer ships (DONE)
     - for loop for number of ships to place
     - for each ship, pick random coordinates on a 10/10 grid
     - check if that coordinate is taken, if is repeat
     - if not set that coordinate to a 1
-- create player ships (for initial troubleshooting this should also be computer)
+
+- create player ships (DONE)
     - player selects where to place each ship
     - check if it overlaps
     - repeat * 5
+
 - battle
     - player picks shot
     - check if is hit or miss and output
@@ -19,10 +22,14 @@
     - computer randomly picks shot (random at first but could add strategy later)
     - check if is hit or miss and output
     - store hit value (this will be tricky)
+
+    TO DO:
     - check for if game is over
-- finish
+
+- finish (TO DO)
     - thank you for playing
     - add a loop to repeat
+
 - tools to use
     - the whole game should be in a while loop
     - board should be a 2d array
@@ -30,5 +37,11 @@
     - creating player and computer ships should both use loops
     - in fact everything should be a loop to account for stupid players
     - how do i check if ships have been sunk
+
+
+- logic for checkWin()
+    default value of player won to true
+    for each single cell
+        if the value for the cell is 1 player won is false
 
 
