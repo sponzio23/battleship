@@ -26,15 +26,14 @@ public class battleship {
     public static void main(String[] args) {
         rules();
         setVars();
+        placePlayerShips();
         placeCompShips();
         while (!gameDone) {
-            printArray(compShips); // this is for testing remove later
-            autoWin();
-            printArray(compShips);
+            playerShot();
             checkWin();
-            gameDone = true;
+            compShot();
+            checkWin();
         }
-        System.out.println("Game over, thank you for playing. The " + winner + " won!");
 
 
     }
@@ -181,7 +180,7 @@ public class battleship {
             int shipCol = ThreadLocalRandom.current().nextInt(0, numCols);
             if (compShips[shipRow][shipCol] == 0) {
                 compShips[shipRow][shipCol] = 1;
-                System.out.println("Placed a ship at (" + shipCol + ", " + shipRow + ")");
+                System.out.println("Placed a ship at (" + shipRow + ", " + shipCol + ")");
             } else {
                 System.out.println("Failed to place ship.");
                 i--;
@@ -291,40 +290,46 @@ public class battleship {
         }
     }
 
-    static void checkWin() {
-        gameDone = true;
-        for (int[] row : playerShips) {
-            for (int num : row) {
-                if (num == 1) {
+    static void checkWin(){
+        for (int i = 0; i < 2; i ++){
+            for (int j = 0; j < 2; j++){
+                if (playerShips[i][j] == 1){
+                    System.out.println("Player has ships remaining");
                     playerShipsLeft = true;
-                    gameDone = false;
                     break;
                 }
             }
-        }
-        for (int[] row : compShips) {
-            for (int num : row) {
-                if (num == 1) {
-                    compShipsLeft = true;
-                    gameDone = false;
-                    break;
-                }
-            }
-        }
-        if (compShipsLeft && !playerShipsLeft){
-            winner = "computer";
-        }
-        else  if (playerShipsLeft && !compShipsLeft){
-            winner = "player";
-        }
         }
 
-    static void autoWin(){ // this is purely for testing purposes
+        for (int i = 0; i < 2; i ++){
+            for (int j = 0; j < 2; j++){
+                if (compShips[i][j] == 1){
+                    System.out.println("Computer has ships remaining");
+                    compShipsLeft = true;
+                    break;
+                }
+            }
+        }
+
+        if(playerShipsLeft && !compShipsLeft){
+            gameDone = true;
+            winner = "player";
+        }
+        else if (!playerShipsLeft && compShipsLeft){
+            gameDone = true;
+            winner = "computer";
+        }
+        else if (playerShipsLeft && compShipsLeft){
+            gameDone = false;
+        }
+    }
+
+    static void autoWin(int[][] input){ // this is purely for testing purposes
         System.out.println("Cheating at the game.");
-        for (int r = 0; r < playerShips.length; r++) {
-            for (int c = 0; c < playerShips[r].length; c++) {
-                if (playerShips[r][c] == 1){
-                    playerShips[r][c] = 3;
+        for (int r = 0; r < input.length; r++) {
+            for (int c = 0; c < input[r].length; c++) {
+                if (input[r][c] == 1){
+                    input[r][c] = 3;
                 }
             }
         }
