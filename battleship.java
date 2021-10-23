@@ -3,6 +3,8 @@ import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class battleship {
+    public static boolean debugMode = false;
+
     public static int numRows;
     public static int numCols;
     public static int numShips;
@@ -18,22 +20,30 @@ public class battleship {
     public static int[][] compBoard;
     public static int[][] compShips;
 
+    public static int playerHits = 0;
+    public static int compHits = 0;
     public static boolean gameDone = false;
     public static String winner = null;
-    public static boolean playerShipsLeft = false;
-    public static boolean compShipsLeft = false;
 
     public static void main(String[] args) {
+        if (debugMode){
+            System.out.println("DEBUG MODE IS ENABLED");
+            newline();
+        }
         rules();
         setVars();
         placePlayerShips();
         placeCompShips();
         while (!gameDone) {
+            printArray(playerBoard);
+            printArray(playerShips);
             playerShot();
-            checkWin();
+            if (gameDone){
+                break;
+            }
             compShot();
-            checkWin();
         }
+        System.out.println("The " + winner + " won!");
 
 
     }
@@ -44,16 +54,10 @@ public class battleship {
 
     static void printArray(int[][] input) {
         if (input == playerBoard){
-            System.out.println("Printing the player's board");
-        }
-        else if (input == compBoard){
-            System.out.println("Printing the computer's board");
-        }
-        else if (input == compShips){
-            System.out.println("Printing the computer's ships (DEBUG INFO)");
+            System.out.println("Player Board");
         }
         else if (input == playerShips){
-            System.out.println("Printing the player's ships (DEBUG INFO)");
+            System.out.println("Player Ships");
         }
 
         for (int[] row : input) {
@@ -67,7 +71,42 @@ public class battleship {
         while(!rulesDone) {
             String printRules = rulesScanner.nextLine();
             if (printRules.equals("y")) {
-                System.out.println("RULES PLACEHOLDER");
+                System.out.println("""
+                    
+                    WELCOME TO BATTLESHIP!
+
+                    OBJECT OF THE GAME
+                    To sink your opponents ships before they can sink yours. You will be playing against a computer
+                    that operates fully randomly.
+
+                    PREPARE FOR BATTLE
+                    You will be prompted if you would like to use the default values. If you choose yes, you will play
+                    with a 3x3 board and 3 ships. You will have 3 shots each round. If you choose no, you can set these
+                    values as you desire. Currently each ship only takes up a 1x1 space. This might be changed in
+                    future versions. Once you have set all these values you will be prompted to place each of your
+                    ships by entering coordinates. Values that are not integers or that don’t exist on the board will
+                    not be accepted. Once you have placed your ships the computer will place its ships.
+
+                    BATTLE
+                    You and the computer will take turns shooting. You will go first. Before each time it becomes your
+                    turn you will see two grids. One is labeled Player Board and the other is labeled Player Ships.
+                    Player Ships shows your ships. A 0 means there is nothing there, a 1 means one of your ships is
+                    there, a 2 means the computer has fired at that location and missed, and a 3 means that location
+                    had a ship that the computer shot at and hit. Player board shows your previous shots. A 0 means
+                    you have not yet shot there, a 2 means you missed, and a 3 means you hit something. When it is your
+                    turn to shoot you will be prompted to enter coordinates similar to how you placed your ships.
+                    Yet again, values that are not integers or that don’t exist on the board will not be accepted.
+                    In addition, locations you have already shot at cannot be shot at again. Once you have taken your
+                    shot you will be informed if it is a hit or miss. This process will repeat for as many shots as
+                    you have. After you have shot, the computer will shoot. The computer randomly selects and announces
+                    its shots and then informs you if they are a hit or a miss.
+
+                    WINNING/LOSING THE GAME
+                    If at any point you or the computer has no ships remaining, the game will end and the winner will
+                    be announced. If you would like to play again, simply click the run button again.
+
+                    ENJOY!
+                    """);
                 rulesDone = true;
             } else if (printRules.equals("n")) {
                 rulesDone = true;
@@ -86,7 +125,7 @@ public class battleship {
                 numRows = 3;
                 numCols = 3;
                 numShips = 3;
-                numShots = 1;
+                numShots = 3;
                 varsDone = true;
             }
             else if (useDefaultVars.equals("n")){
@@ -180,44 +219,49 @@ public class battleship {
             int shipCol = ThreadLocalRandom.current().nextInt(0, numCols);
             if (compShips[shipRow][shipCol] == 0) {
                 compShips[shipRow][shipCol] = 1;
-                System.out.println("Placed a ship at (" + shipRow + ", " + shipCol + ")");
+                if (debugMode){
+                    System.out.println("The computer placed ship #" + (i+1) +"at (" + shipRow + ", " + shipCol + ")");
+                }
             } else {
-                System.out.println("Failed to place ship.");
+                if (debugMode){
+                    System.out.println("The computer failed to place ship #" + (i+1) + ".");
+                }
                 i--;
             }
         }
+        System.out.println("The computer has placed it's ships!");
     }
 
     static void placePlayerShips() {
         System.out.println("Placing " + numShips + " ships.");
         for (int i = 0; i < numShips; i++) {
-            newline();
-            System.out.println("Place ship #" + (i + 1) + " by entering a row. This value must be between 0 and "
-                    + (numRows - 1) + ".");
+            System.out.println("Place player ship #" + (i + 1) + " by entering a row. " +
+                    "This value must be between 0 and " + (numRows - 1) + ".");
             while (!placeScanner.hasNextInt()) {
                 System.out.println("Please enter a number.");
                 placeScanner.next();
             }
             int shipRow = Math.abs(placeScanner.nextInt());
 
-            System.out.println("Place ship #" + (i + 1) + " by entering a column. This value must be between 0 and "
-                    + (numCols - 1) + ".");
+            System.out.println("Place player ship #" + (i + 1) + " by entering a column. " +
+                    "This value must be between 0 and " + (numCols - 1) + ".");
             while (!placeScanner.hasNextInt()) {
                 System.out.println("Please enter a number.");
                 placeScanner.next();
             }
             int shipCol = Math.abs(placeScanner.nextInt());
-            newline();
             if (shipCol > (numCols - 1) || shipRow > (numRows - 1)) {
-                System.out.println("Failed to place ship. One or both of your values is/are either too large " +
-                        "or small. Please try again.");
+                System.out.println("Failed to place ship #"  + (i + 1) + ". " +
+                        "One or both of your values is/are either too large or small. Please try again.");
                 i--;
             } else if (playerShips[shipRow][shipCol] == 1) {
-                System.out.println("Failed to place ship. That location already has a ship. Please try again.");
+                System.out.println("Failed to place ship #" + (i + 1) + ". " +
+                        "That location already has a ship. Please try again.");
                 i--;
             } else {
                 playerShips[shipRow][shipCol] = 1;
-                System.out.println("Successfully placed ship #" + (i + 1) + " at (" + shipRow + ", " + shipCol + ")");
+                System.out.println("Successfully placed player ship #"
+                        + (i + 1) + " at (" + shipRow + ", " + shipCol + ")");
             }
         }
     }
@@ -225,7 +269,6 @@ public class battleship {
     static void playerShot() {
         System.out.println("It is your turn to shoot! You have " + numShots + " shots.");
         for (int i = 0; i < numShots; i++) {
-            newline();
             System.out.println("Take shot #" + (i + 1) + " by entering a row. This value must be between 0 and "
                     + (numRows - 1) + ".");
             while (!shotScanner.hasNextInt()) {
@@ -241,20 +284,18 @@ public class battleship {
                 shotScanner.next();
             }
             int shotCol = Math.abs(shotScanner.nextInt());
-            newline();
             if (shotCol > (numCols - 1) || shotRow > (numRows - 1)) {
                 System.out.println("Failed to take shot. One or both of your values is/are either too large " +
                         "or small. Please try again.");
-                newline();
                 i--;
             } else if (playerShips[shotRow][shotCol] == 2 || playerShips[shotRow][shotCol] == 3) {
                 System.out.println("Failed to take shot. That location has already been shot at. Please try again.");
                 i--;
-                newline();
             } else {
                 System.out.println("Fired shot #" + (i + 1) + " at (" + shotRow + ", " + shotCol + ")");
                 if (compShips[shotRow][shotCol] == 1) {
                     System.out.println("HIT!!!");
+                    playerHits++;
                     compShips[shotRow][shotCol] = 3;
                     playerBoard[shotRow][shotCol] = 3;
                 } else {
@@ -263,6 +304,10 @@ public class battleship {
                     System.out.println("You missed, sorry.");
                 }
             }
+        checkWin();
+        if (gameDone){
+            break;
+        }
         }
     }
 
@@ -272,13 +317,15 @@ public class battleship {
             int shotRow = ThreadLocalRandom.current().nextInt(0, numRows);
             int shotCol = ThreadLocalRandom.current().nextInt(0, numCols);
             if (playerShips[shotRow][shotCol] == 2 || playerShips[shotRow][shotCol] == 3) {
-                System.out.println("Shot failed.");
+                if (debugMode){
+                    System.out.println("Shot failed.");
+                }
                 i--;
-                newline();
             } else {
                 System.out.println("The computer fired shot #" + (i + 1) + " at (" + shotRow + ", " + shotCol + ")");
                 if (playerShips[shotRow][shotCol] == 1) {
                     System.out.println("HIT!!!");
+                    compHits++;
                     playerShips[shotRow][shotCol] = 3;
                     compBoard[shotRow][shotCol] = 3;
                 } else {
@@ -287,39 +334,23 @@ public class battleship {
                     System.out.println("The computer missed!");
                 }
             }
+        checkWin();
+        if (gameDone){
+            break;
+        }
         }
     }
 
     static void checkWin(){
-        for (int i = 0; i < 2; i ++){
-            for (int j = 0; j < 2; j++){
-                if (playerShips[i][j] == 1){
-                    System.out.println("Player has ships remaining");
-                    playerShipsLeft = true;
-                    break;
-                }
-            }
-        }
-
-        for (int i = 0; i < 2; i ++){
-            for (int j = 0; j < 2; j++){
-                if (compShips[i][j] == 1){
-                    System.out.println("Computer has ships remaining");
-                    compShipsLeft = true;
-                    break;
-                }
-            }
-        }
-
-        if(playerShipsLeft && !compShipsLeft){
+        if(playerHits == numShips){
             gameDone = true;
             winner = "player";
         }
-        else if (!playerShipsLeft && compShipsLeft){
+        else if (compHits == numShips){
             gameDone = true;
             winner = "computer";
         }
-        else if (playerShipsLeft && compShipsLeft){
+        else{
             gameDone = false;
         }
     }
