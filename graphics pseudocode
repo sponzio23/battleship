@@ -1,0 +1,13 @@
+
+major changes:
+    no need for scanners, need to be changed to dialogues
+    no need for print, need to be changed to fields maybe? or labels? idk
+    still going to use arrays, need to test if they can be printed
+
+create a window
+welcome to battleship
+check for rules, output them if selected
+
+other than inputs setVars() should be very much the same
+
+
