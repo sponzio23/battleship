@@ -1,8 +1,10 @@
+package src.main.java.com.sponzio.battleship;
+
 import java.util.Arrays; // used to print arrays
 import java.util.Scanner; // used to monitor for user input
 import java.util.concurrent.ThreadLocalRandom; // used to generate random numbers
 
-public class battleship {
+public class battleship{
     public static boolean debugMode = false; // if true, secret information about the location of ships will be printed
 
     // initializing variables to be defined later
