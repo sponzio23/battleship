@@ -1,3 +1,5 @@
+package src.main.java.com.sponzio.battleship;
+
 import java.util.Arrays; // used to print arrays
 import java.util.Scanner; // used to monitor for user input
 import java.util.concurrent.ThreadLocalRandom; // used to generate random numbers
