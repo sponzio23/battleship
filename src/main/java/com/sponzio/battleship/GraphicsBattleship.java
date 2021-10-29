@@ -38,24 +38,26 @@ public class GraphicsBattleship {
 
         // setup methods that don't get repeated
         rules.rulesDialogue(frame);
-        setVars();
-        placePlayerShips();
-        placeCompShips();
+        playerShips = new int[5][5];
+        PrintArray.printArray(frame, playerShips);
+        //setVars();
+        //placePlayerShips();
+        //placeCompShips();
 
         // main gameplay loop
-        while (!gameDone) {
-            // print info for player
-            PrintArray.printArray(frame, playerBoard);
-            PrintArray.printArray(frame, playerShips);
-
-            playerShot();
-            // checks if game is done and breaks the while loop because the while loop only updates at the end
-            if (gameDone){
-                break;
-            }
-            compShot();
-            // no check here because the while loop does it
-        }
+//        while (!gameDone) {
+//            // print info for player
+//            PrintArray.printArray(frame, playerBoard);
+//            PrintArray.printArray(frame, playerShips);
+//
+//            playerShot();
+//            // checks if game is done and breaks the while loop because the while loop only updates at the end
+//            if (gameDone){
+//                break;
+//            }
+//            compShot();
+//            // no check here because the while loop does it
+//        }
         System.out.println("GAME OVER!!!");
         System.out.println("The " + winner + " won!");
     }
