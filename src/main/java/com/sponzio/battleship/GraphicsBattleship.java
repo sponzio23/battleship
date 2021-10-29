@@ -1,11 +1,10 @@
 package src.main.java.com.sponzio.battleship;
 
-import java.util.Arrays;
+import javax.swing.*;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class GraphicsBattleship {
-
     // initializing variables to be defined later
     public static int numRows;
     public static int numCols;
@@ -30,7 +29,15 @@ public class GraphicsBattleship {
     public static String winner = null;
 
     public static void main(String[] args) {
+        // create the frame for the game
+        JFrame frame = new JFrame();
+        frame.pack();
+        frame.setResizable(false);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+
         // setup methods that don't get repeated
+        rules.rulesDialogue(frame);
         setVars();
         placePlayerShips();
         placeCompShips();
@@ -38,7 +45,8 @@ public class GraphicsBattleship {
         // main gameplay loop
         while (!gameDone) {
             // print info for player
-
+            PrintArray.printArray(frame, playerBoard);
+            PrintArray.printArray(frame, playerShips);
 
             playerShot();
             // checks if game is done and breaks the while loop because the while loop only updates at the end

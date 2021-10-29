@@ -6,18 +6,6 @@ public class rules {
     // import icons
     static ImageIcon questionIcon = createImageIcon("/src/main/resources/question.png", "A question mark");
 
-    public static void main(String[] args) {
-        // all this just creates a window
-        JFrame frame = new JFrame();
-        frame.pack();
-        frame.setResizable(false);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-
-        rulesDialogue(frame);
-
-    }
-
     // method to create the rules dialogue
     public static void rulesDialogue(JFrame inputFrame){
         boolean rulesDone = false;
