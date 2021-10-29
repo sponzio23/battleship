@@ -38,8 +38,8 @@ public class GraphicsBattleship {
         // main gameplay loop
         while (!gameDone) {
             // print info for player
-            printArray(playerBoard);
-            printArray(playerShips);
+
+
             playerShot();
             // checks if game is done and breaks the while loop because the while loop only updates at the end
             if (gameDone){
@@ -50,23 +50,6 @@ public class GraphicsBattleship {
         }
         System.out.println("GAME OVER!!!");
         System.out.println("The " + winner + " won!");
-    }
-
-    // a method that prints any 2d array of integers based into it
-    static void printArray(int[][] input) {
-        // print the name of the array if it's important for the user to know
-        if (input == playerBoard){
-            System.out.println("Player Board");
-        }
-        else if (input == playerShips){
-            System.out.println("Player Ships");
-        }
-
-        // this loops through each row and uses the java.util.Arrays package that was imported at the start
-        // to convert it to a string and print it
-        for (int[] row : input) {
-            System.out.println(Arrays.toString(row));
-        }
     }
 
     // a method that gives values to the variables initialized at the start
