@@ -18,16 +18,27 @@ public class SetVars {
                 GraphicsBattleship.numShips = 3;
                 GraphicsBattleship.numShots = 3;
                 varsDone = true;
-            } else if (varsChoice == 1) {
-                System.out.println("DON\"T USE DEFAULTS");
+            }
+            else if (varsChoice == 1) {
+                System.out.println("DON'T USE DEFAULTS");
+
+                // this needs to be checked
+                String s = (String) JOptionPane.showInputDialog(inputFrame,
+                        "How many rows would you like the board to have?",
+                        null,
+                        JOptionPane.PLAIN_MESSAGE,
+                        questionIcon,
+                        null, null);
+                GraphicsBattleship.numRows = Integer.parseInt(s);
+                System.out.println(GraphicsBattleship.numRows * 2);
                 varsDone = true;
-            } else if (varsChoice == -1) {
+            }
+            else if (varsChoice == -1) {
                 JOptionPane.showMessageDialog(inputFrame,
                         "Please choose yes or no.", null,
                         JOptionPane.ERROR_MESSAGE);
             }
         }
-
         GraphicsBattleship.playerBoard = new int[battleship.numRows][battleship.numCols];
         GraphicsBattleship.playerShips = new int[GraphicsBattleship.numRows][GraphicsBattleship.numCols];
         GraphicsBattleship.compBoard = new int[GraphicsBattleship.numRows][GraphicsBattleship.numCols];
