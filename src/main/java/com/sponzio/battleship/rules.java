@@ -55,7 +55,6 @@ public class rules {
                     null, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
                     questionIcon, null, null);
             if (rulesChoice == 0) {
-                System.out.println(rulesText);
                 JOptionPane.showMessageDialog(inputFrame, rulesText, "Battleship Rules", JOptionPane.PLAIN_MESSAGE);
                 rulesDone = true;
             } else if (rulesChoice == 1) {

@@ -38,8 +38,7 @@ public class GraphicsBattleship {
 
         // setup methods that don't get repeated
         rules.rulesDialogue(frame);
-        playerShips = new int[5][5];
-        PrintArray.printArray(frame, playerShips);
+        SetVars.setVars(frame);
         //setVars();
         //placePlayerShips();
         //placeCompShips();
