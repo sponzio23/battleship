@@ -246,4 +246,15 @@ public class GraphicsBattleship {
             gameDone = false;
         }
     }
+
+    // method to import images as icons
+    protected static ImageIcon createImageIcon(String path, String description) {
+        java.net.URL imgURL = rules.class.getResource(path);
+        if (imgURL != null) {
+            return new ImageIcon(imgURL, description);
+        } else {
+            System.err.println("Couldn't find file: " + path);
+            return null;
+        }
+    }
 }
