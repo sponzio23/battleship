@@ -8,32 +8,42 @@ public class SetVars {
 
         boolean varsDone = false;
         while (!varsDone) {
-            int varsChoice = JOptionPane.showOptionDialog(inputFrame,
+            int defaultVarsChoice = JOptionPane.showOptionDialog(inputFrame,
                     "Would you like to use the default variables?",
                     null, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
                     questionIcon, null, null);
-            if (varsChoice == 0) {
+            if (defaultVarsChoice == 0) {
                 GraphicsBattleship.numRows = 3;
                 GraphicsBattleship.numCols = 3;
                 GraphicsBattleship.numShips = 3;
                 GraphicsBattleship.numShots = 3;
                 varsDone = true;
             }
-            else if (varsChoice == 1) {
+            else if (defaultVarsChoice == 1) {
                 System.out.println("DON'T USE DEFAULTS");
+                boolean  varsChoice= false;
+                JTextField rowsChoice = new JTextField();
+                JTextField colsChoice = new JTextField();
+                JTextField shipsChoice = new JTextField();
+                JTextField shotsChoice = new JTextField();
 
-                // this needs to be checked
-                String s = (String) JOptionPane.showInputDialog(inputFrame,
-                        "How many rows would you like the board to have?",
-                        null,
-                        JOptionPane.PLAIN_MESSAGE,
-                        questionIcon,
-                        null, null);
-                GraphicsBattleship.numRows = Integer.parseInt(s);
-                System.out.println(GraphicsBattleship.numRows * 2);
-                varsDone = true;
-            }
-            else if (varsChoice == -1) {
+                Object[] varsChoiceMessage = {
+                        "   Number of Rows:", rowsChoice,
+                        "   Number of Columns:", colsChoice,
+                        "   Number of Ships:", shipsChoice,
+                        "   Number of shots:", shotsChoice,
+                };
+
+                int option = JOptionPane.showConfirmDialog(null,
+                        varsChoiceMessage,
+                        "Choose your variables",
+                        JOptionPane.UNDEFINED_CONDITION, // no clue why this gives me a light erro
+                        JOptionPane.PLAIN_MESSAGE);
+                }
+
+                // TODO: Put code that interprets the output from option
+
+            else if (defaultVarsChoice == -1) {
                 JOptionPane.showMessageDialog(inputFrame,
                         "Please choose yes or no.", null,
                         JOptionPane.ERROR_MESSAGE);
