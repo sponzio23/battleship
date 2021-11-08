@@ -39,26 +39,26 @@ public class GraphicsBattleship {
         // setup methods that don't get repeated
         rules.rulesDialogue(frame);
         SetVars.setVars(frame);
-        //setVars();
-        //placePlayerShips();
+        PlacePlayerShips.placePlayerShips(frame);
         //placeCompShips();
 
         // main gameplay loop
-//        while (!gameDone) {
-//            // print info for player
-//            PrintArray.printArray(frame, playerBoard);
-//            PrintArray.printArray(frame, playerShips);
-//
-//            playerShot();
-//            // checks if game is done and breaks the while loop because the while loop only updates at the end
-//            if (gameDone){
-//                break;
-//            }
-//            compShot();
-//            // no check here because the while loop does it
-//        }
-        System.out.println("GAME OVER!!!");
-        System.out.println("The " + winner + " won!");
+        //while (!gameDone) {
+            // print info for player
+            //PrintArray.printArray(frame, playerBoard);
+            //PrintArray.printArray(frame, playerShips);
+
+            //playerShot();
+
+            // checks if game is done and breaks the while loop because the while loop only updates at the end
+            //if (gameDone){
+                //break;
+            //}
+
+            //compShot();
+
+            // no check here because the while loop does it
+        //}
         frame.dispose();
         System.exit(0);
     }
@@ -87,49 +87,49 @@ public class GraphicsBattleship {
     }
 
     // a method that places the player's ships based on user input
-    static void placePlayerShips() {
-        System.out.println("Placing " + numShips + " ships.");
-        // a loop that is run once for each ship
-        for (int i = 0; i < numShips; i++) {
-            System.out.println("Place player ship #" + (i + 1) + " by entering a row. " +
-                    "This value must be between 0 and " + (numRows - 1) + "."); // prompt for user input
-            // checks if input is an integer and returns an error if it's not
-            while (!placeScanner.hasNextInt()) {
-                System.out.println("Please enter a number.");
-                placeScanner.next();
-            }
-            int shipRow = Math.abs(placeScanner.nextInt()); // sets the ship's row to the user input
-
-            // this section is the same as the one above it
-            System.out.println("Place player ship #" + (i + 1) + " by entering a column. " +
-                    "This value must be between 0 and " + (numCols - 1) + ".");
-            while (!placeScanner.hasNextInt()) {
-                System.out.println("Please enter a number.");
-                placeScanner.next();
-            }
-            int shipCol = Math.abs(placeScanner.nextInt());
-
-            // decreases the iterator and prints an error if either user input is too large
-            if (shipCol > (numCols - 1) || shipRow > (numRows - 1)) {
-                System.out.println("Failed to place ship #"  + (i + 1) + ". " +
-                        "One or both of your values is/are either too large or small. Please try again.");
-                i--;
-            }
-            // decreases the iterator and prints an error if there is already a ship at the chosen location
-            else if (playerShips[shipRow][shipCol] == 1) {
-                System.out.println("Failed to place ship #" + (i + 1) + ". " +
-                        "That location already has a ship. Please try again.");
-                i--;
-            }
-            // if the user input isn't too large and there isn't already a ship at the location this places a ship
-            // and informs the user that the ship has been placed
-            else {
-                playerShips[shipRow][shipCol] = 1;
-                System.out.println("Successfully placed player ship #"
-                        + (i + 1) + " at (" + shipRow + ", " + shipCol + ")");
-            }
-        }
-    }
+//    static void placePlayerShips() {
+//        System.out.println("Placing " + numShips + " ships.");
+//        // a loop that is run once for each ship
+//        for (int i = 0; i < numShips; i++) {
+//            System.out.println("Place player ship #" + (i + 1) + " by entering a row. " +
+//                    "This value must be between 0 and " + (numRows - 1) + "."); // prompt for user input
+//            // checks if input is an integer and returns an error if it's not
+//            while (!placeScanner.hasNextInt()) {
+//                System.out.println("Please enter a number.");
+//                placeScanner.next();
+//            }
+//            int shipRow = Math.abs(placeScanner.nextInt()); // sets the ship's row to the user input
+//
+//            // this section is the same as the one above it
+//            System.out.println("Place player ship #" + (i + 1) + " by entering a column. " +
+//                    "This value must be between 0 and " + (numCols - 1) + ".");
+//            while (!placeScanner.hasNextInt()) {
+//                System.out.println("Please enter a number.");
+//                placeScanner.next();
+//            }
+//            int shipCol = Math.abs(placeScanner.nextInt());
+//
+//            // decreases the iterator and prints an error if either user input is too large
+//            if (shipCol > (numCols - 1) || shipRow > (numRows - 1)) {
+//                System.out.println("Failed to place ship #"  + (i + 1) + ". " +
+//                        "One or both of your values is/are either too large or small. Please try again.");
+//                i--;
+//            }
+//            // decreases the iterator and prints an error if there is already a ship at the chosen location
+//            else if (playerShips[shipRow][shipCol] == 1) {
+//                System.out.println("Failed to place ship #" + (i + 1) + ". " +
+//                        "That location already has a ship. Please try again.");
+//                i--;
+//            }
+//            // if the user input isn't too large and there isn't already a ship at the location this places a ship
+//            // and informs the user that the ship has been placed
+//            else {
+//                playerShips[shipRow][shipCol] = 1;
+//                System.out.println("Successfully placed player ship #"
+//                        + (i + 1) + " at (" + shipRow + ", " + shipCol + ")");
+//            }
+//        }
+//    }
 
     static void playerShot() {
         System.out.println("It is your turn to shoot! You have " + numShots + " shots.");

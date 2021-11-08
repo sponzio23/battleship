@@ -40,8 +40,8 @@ public class SetVars {
                 GraphicsBattleship.numRows = (int) rowsChooser.getValue();
                 GraphicsBattleship.numCols = (int) colsChooser.getValue();
 
-                System.out.println("Number of rows set to: " + GraphicsBattleship.numRows);
-                System.out.println("Number of columns set to: " + GraphicsBattleship.numCols);
+                System.out.println("Number of rows set to " + GraphicsBattleship.numRows);
+                System.out.println("Number of columns set to " + GraphicsBattleship.numCols);
 
                 int numSlots = GraphicsBattleship.numRows * GraphicsBattleship.numCols;
 
@@ -63,8 +63,8 @@ public class SetVars {
                 GraphicsBattleship.numShips = (int) shipsChooser.getValue();
                 GraphicsBattleship.numShots = (int) shotsChooser.getValue();
 
-                System.out.println("Number of ships set to: " + GraphicsBattleship.numShips);
-                System.out.println("Number of shots set to: " + GraphicsBattleship.numShots);
+                System.out.println("Number of ships set to " + GraphicsBattleship.numShips);
+                System.out.println("Number of shots set to " + GraphicsBattleship.numShots);
 
                 varsDone = true;
                 }
