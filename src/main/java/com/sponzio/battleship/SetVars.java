@@ -30,24 +30,42 @@ public class SetVars {
                 JSpinner colsChooser = new JSpinner(colsSpinnerModel);
                 colsChooser.setEditor(new JSpinner.DefaultEditor(colsChooser));
 
-                Object[] varsChoiceMessage = {
+                Object[] firstVarsChoiceMessage = {
                         "   Number of Rows (1-20):", rowsChooser,
                         "   Number of Columns (1-20):", colsChooser,
                 };
 
-                JOptionPane.showMessageDialog(inputFrame, varsChoiceMessage);
+                JOptionPane.showMessageDialog(inputFrame, firstVarsChoiceMessage);
                 GraphicsBattleship.numRows = (int) rowsChooser.getValue();
                 GraphicsBattleship.numCols = (int) colsChooser.getValue();
 
-                System.out.println(GraphicsBattleship.numRows);
-                System.out.println(GraphicsBattleship.numCols);
+                System.out.println("Number of rows set to :" + GraphicsBattleship.numRows);
+                System.out.println("Number of columns set to :" + GraphicsBattleship.numCols);
 
+                int numSlots = GraphicsBattleship.numRows * GraphicsBattleship.numCols;
+
+                SpinnerNumberModel shipsSpinnerModel = new SpinnerNumberModel(1, 1, numSlots,1);
+                JSpinner shipsChooser = new JSpinner(shipsSpinnerModel);
+                shipsChooser.setEditor(new JSpinner.DefaultEditor(shipsChooser));
+
+                SpinnerNumberModel shotsSpinnerModel = new SpinnerNumberModel(1, 1, numSlots,1);
+                JSpinner shotsChooser = new JSpinner(shotsSpinnerModel);
+                shotsChooser.setEditor(new JSpinner.DefaultEditor(shotsChooser));
+
+                Object[] secondVarsChoiceMessage = {
+                        "   Number of Ships (1-" + numSlots + "):", shipsChooser,
+                        "   Number of Shots (1-" + numSlots + "):", shotsChooser,
+                };
+
+                JOptionPane.showMessageDialog(inputFrame, secondVarsChoiceMessage);
+                GraphicsBattleship.numShips = (int) shipsChooser.getValue();
+                GraphicsBattleship.numShots = (int) shotsChooser.getValue();
+
+                System.out.println("Number of ships set to :" + GraphicsBattleship.numShips);
+                System.out.println("Number of shots set to :" + GraphicsBattleship.numShots);
 
                 varsDone = true;
-
                 }
-
-                // TODO: Put code that interprets the output from option
 
             else if (defaultVarsChoice == -1) {
                 JOptionPane.showMessageDialog(inputFrame,
