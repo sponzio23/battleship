@@ -20,10 +20,20 @@ public class PlacePlayerShips {
 
             JOptionPane.showMessageDialog(inputFrame, shipPlacementsMessage, "Place Ship #" + (i + 1),
                     JOptionPane.PLAIN_MESSAGE, null);
-            //GraphicsBattleship.playerShips[(int) rowChooser.getValue()][(int) colChooser.getValue()] = 1;
+
             int shipRow = (int) shipRowChooser.getValue();
             int shipCol = (int) shipColChooser.getValue();
-            System.out.println("Placed player ship #" + (i + 1) + " at " + shipRow + ", " + shipCol);
+
+            if (GraphicsBattleship.playerShips[shipCol-1][shipRow-1] == 1){
+                JOptionPane.showMessageDialog(inputFrame,
+                        "That location already contains a ship, please choose a different location.",
+                        null, JOptionPane.ERROR_MESSAGE);
+                i--;
+            }
+            else {
+                GraphicsBattleship.playerShips[shipCol-1][shipRow-1] = 1;
+                System.out.println("Placed player ship #" + (i + 1) + " at " + shipRow + ", " + shipCol);
+            }
         }
     }
 }
