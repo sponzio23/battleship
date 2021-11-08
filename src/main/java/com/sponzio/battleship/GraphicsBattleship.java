@@ -59,6 +59,8 @@ public class GraphicsBattleship {
 //        }
         System.out.println("GAME OVER!!!");
         System.out.println("The " + winner + " won!");
+        frame.dispose();
+        System.exit(0);
     }
 
     // a method that randomly places the computer's ships

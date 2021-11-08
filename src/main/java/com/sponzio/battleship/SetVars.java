@@ -35,12 +35,13 @@ public class SetVars {
                         "   Number of Columns (1-20):", colsChooser,
                 };
 
-                JOptionPane.showMessageDialog(inputFrame, firstVarsChoiceMessage);
+                JOptionPane.showMessageDialog(inputFrame, firstVarsChoiceMessage, "Choose Variables (Part 1/2)",
+                        JOptionPane.PLAIN_MESSAGE, null);
                 GraphicsBattleship.numRows = (int) rowsChooser.getValue();
                 GraphicsBattleship.numCols = (int) colsChooser.getValue();
 
-                System.out.println("Number of rows set to :" + GraphicsBattleship.numRows);
-                System.out.println("Number of columns set to :" + GraphicsBattleship.numCols);
+                System.out.println("Number of rows set to: " + GraphicsBattleship.numRows);
+                System.out.println("Number of columns set to: " + GraphicsBattleship.numCols);
 
                 int numSlots = GraphicsBattleship.numRows * GraphicsBattleship.numCols;
 
@@ -57,12 +58,13 @@ public class SetVars {
                         "   Number of Shots (1-" + numSlots + "):", shotsChooser,
                 };
 
-                JOptionPane.showMessageDialog(inputFrame, secondVarsChoiceMessage);
+                JOptionPane.showMessageDialog(inputFrame, secondVarsChoiceMessage, "Choose Variables (Part 2/2)",
+                        JOptionPane.PLAIN_MESSAGE, null);
                 GraphicsBattleship.numShips = (int) shipsChooser.getValue();
                 GraphicsBattleship.numShots = (int) shotsChooser.getValue();
 
-                System.out.println("Number of ships set to :" + GraphicsBattleship.numShips);
-                System.out.println("Number of shots set to :" + GraphicsBattleship.numShots);
+                System.out.println("Number of ships set to: " + GraphicsBattleship.numShips);
+                System.out.println("Number of shots set to: " + GraphicsBattleship.numShots);
 
                 varsDone = true;
                 }
