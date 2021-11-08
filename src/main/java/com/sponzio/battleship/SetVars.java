@@ -21,24 +21,30 @@ public class SetVars {
             }
             else if (defaultVarsChoice == 1) {
                 System.out.println("DON'T USE DEFAULTS");
-                boolean  varsChoice= false;
-                JTextField rowsChoice = new JTextField();
-                JTextField colsChoice = new JTextField();
-                JTextField shipsChoice = new JTextField();
-                JTextField shotsChoice = new JTextField();
+
+                SpinnerNumberModel rowsSpinnerModel = new SpinnerNumberModel(1, 1, 20,1);
+                JSpinner rowsChooser = new JSpinner(rowsSpinnerModel);
+                rowsChooser.setEditor(new JSpinner.DefaultEditor(rowsChooser));
+
+                SpinnerNumberModel colsSpinnerModel = new SpinnerNumberModel(1, 1, 20,1);
+                JSpinner colsChooser = new JSpinner(colsSpinnerModel);
+                colsChooser.setEditor(new JSpinner.DefaultEditor(colsChooser));
 
                 Object[] varsChoiceMessage = {
-                        "   Number of Rows:", rowsChoice,
-                        "   Number of Columns:", colsChoice,
-                        "   Number of Ships:", shipsChoice,
-                        "   Number of shots:", shotsChoice,
+                        "   Number of Rows (1-20):", rowsChooser,
+                        "   Number of Columns (1-20):", colsChooser,
                 };
 
-                int option = JOptionPane.showConfirmDialog(null,
-                        varsChoiceMessage,
-                        "Choose your variables",
-                        JOptionPane.UNDEFINED_CONDITION, // no clue why this gives me a light erro
-                        JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(inputFrame, varsChoiceMessage);
+                GraphicsBattleship.numRows = (int) rowsChooser.getValue();
+                GraphicsBattleship.numCols = (int) colsChooser.getValue();
+
+                System.out.println(GraphicsBattleship.numRows);
+                System.out.println(GraphicsBattleship.numCols);
+
+
+                varsDone = true;
+
                 }
 
                 // TODO: Put code that interprets the output from option
