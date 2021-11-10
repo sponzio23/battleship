@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class SetVars {
     public static void setVars() {
-        Icon questionIcon = GraphicsBattleship.createImageIcon("/src/main/resources/question.png", "A question mark");
+        Icon questionIcon = createImageIcon();
 
         boolean varsDone = false;
         while (!varsDone) {
@@ -81,5 +81,15 @@ public class SetVars {
         GraphicsBattleship.playerShips = new int[GraphicsBattleship.numRows][GraphicsBattleship.numCols];
         GraphicsBattleship.compBoard = new int[GraphicsBattleship.numRows][GraphicsBattleship.numCols];
         GraphicsBattleship.compShips = new int[GraphicsBattleship.numRows][GraphicsBattleship.numCols];
+    }
+    // method to import images as icons
+    protected static ImageIcon createImageIcon() {
+        java.net.URL imgURL = rules.class.getResource("/src/main/resources/question.png");
+        if (imgURL != null) {
+            return new ImageIcon(imgURL, "A question mark");
+        } else {
+            System.err.println("Couldn't find file: " + "/src/main/resources/question.png");
+            return null;
+        }
     }
 }

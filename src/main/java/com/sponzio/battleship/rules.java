@@ -4,8 +4,7 @@ import javax.swing.*;
 
 public class rules {
     // import icons
-    static Icon questionIcon = GraphicsBattleship.createImageIcon("/src/main/resources/question.png",
-            "A question mark");
+    static Icon questionIcon = createImageIcon();
 
     // method to create the rules dialogue
     public static void rulesDialogue() {
@@ -64,6 +63,16 @@ public class rules {
                 JOptionPane.showMessageDialog(GraphicsBattleship.frame, "Please choose yes or no.",
                         null, JOptionPane.ERROR_MESSAGE);
             }
+        }
+    }
+    // method to import images as icons
+    protected static ImageIcon createImageIcon() {
+        java.net.URL imgURL = rules.class.getResource("/src/main/resources/question.png");
+        if (imgURL != null) {
+            return new ImageIcon(imgURL, "A question mark");
+        } else {
+            System.err.println("Couldn't find file: " + "/src/main/resources/question.png");
+            return null;
         }
     }
 }
