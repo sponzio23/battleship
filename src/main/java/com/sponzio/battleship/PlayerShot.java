@@ -63,8 +63,8 @@ public class PlayerShot extends  JPanel implements  ActionListener{
                     GraphicsBattleship.compShips[shotRow - 1][shotCol - 1] = 2;
                     GraphicsBattleship.playerBoard[shotRow - 1][shotCol - 1] = 2;
                 }
-                System.out.println("Fired shot #" + (i + 1) + " at " + shotRow + ", " + shotCol);
             }
+            GraphicsBattleship.checkWin();
         }
     }
     public void actionPerformed(ActionEvent e) {

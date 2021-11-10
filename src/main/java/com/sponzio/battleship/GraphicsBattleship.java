@@ -43,22 +43,12 @@ public class GraphicsBattleship {
         PlayerShot.playerShot();
 
         // main gameplay loop
-        //while (!gameDone) {
-            // print info for player
-            //PrintArray.printArray(frame, playerBoard);
-            //PrintArray.printArray(frame, playerShips);
-
-            //playerShot();
-
-            // checks if game is done and breaks the while loop because the while loop only updates at the end
-            //if (gameDone){
-                //break;
-            //}
-
-            //compShot();
-
-            // no check here because the while loop does it
-        //}
+        while (!gameDone) {
+            playerShot();
+            if (gameDone){break;}
+            compShot();
+        }
+        System.out.println("The winner is the " + winner);
         frame.dispose();
         System.exit(0);
     }

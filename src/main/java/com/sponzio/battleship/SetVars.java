@@ -20,8 +20,6 @@ public class SetVars {
                 varsDone = true;
             }
             else if (defaultVarsChoice == 1) {
-                System.out.println("DON'T USE DEFAULTS");
-
                 SpinnerNumberModel rowsSpinnerModel = new SpinnerNumberModel(1, 1, 20,1);
                 JSpinner rowsChooser = new JSpinner(rowsSpinnerModel);
                 rowsChooser.setEditor(new JSpinner.DefaultEditor(rowsChooser));
@@ -40,8 +38,10 @@ public class SetVars {
                 GraphicsBattleship.numRows = (int) rowsChooser.getValue();
                 GraphicsBattleship.numCols = (int) colsChooser.getValue();
 
-                System.out.println("Number of rows set to " + GraphicsBattleship.numRows);
-                System.out.println("Number of columns set to " + GraphicsBattleship.numCols);
+                JOptionPane.showMessageDialog(GraphicsBattleship.frame,
+                        "Number of rows set to " + GraphicsBattleship.numRows +
+                                "\n Number of columns set to " + GraphicsBattleship.numCols,
+                        null, JOptionPane.PLAIN_MESSAGE);
 
                 int numSlots = GraphicsBattleship.numRows * GraphicsBattleship.numCols;
 
@@ -63,8 +63,10 @@ public class SetVars {
                 GraphicsBattleship.numShips = (int) shipsChooser.getValue();
                 GraphicsBattleship.numShots = (int) shotsChooser.getValue();
 
-                System.out.println("Number of ships set to " + GraphicsBattleship.numShips);
-                System.out.println("Number of shots set to " + GraphicsBattleship.numShots);
+                JOptionPane.showMessageDialog(GraphicsBattleship.frame,
+                        "Number of ships set to " + GraphicsBattleship.numShips +
+                                "\n Number of shots set to " + GraphicsBattleship.numShots,
+                        null, JOptionPane.PLAIN_MESSAGE);
 
                 varsDone = true;
                 }

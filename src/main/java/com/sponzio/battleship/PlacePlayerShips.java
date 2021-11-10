@@ -45,7 +45,9 @@ public class PlacePlayerShips extends  JPanel implements  ActionListener{
                 i--;
             } else {
                 GraphicsBattleship.playerShips[shipCol - 1][shipRow - 1] = 1;
-                System.out.println("Placed player ship #" + (i + 1) + " at " + shipRow + ", " + shipCol);
+                JOptionPane.showMessageDialog(GraphicsBattleship.frame,
+                        "Placed ship #" + (i + 1) + " at (" + shipRow + ", " + shipCol + ")",
+                        null, JOptionPane.PLAIN_MESSAGE);
             }
         }
     }
