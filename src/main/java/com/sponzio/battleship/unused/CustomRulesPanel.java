@@ -1,4 +1,4 @@
-package src.main.java.com.sponzio.battleship;
+package src.main.java.com.sponzio.battleship.unused;
 
 import javax.swing.*;
 import java.awt.*;

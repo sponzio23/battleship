@@ -1,4 +1,4 @@
-package src.main.java.com.sponzio.battleship;
+package src.main.java.com.sponzio.battleship.unused;
 
 import java.util.Arrays; // used to print arrays
 import java.util.Scanner; // used to monitor for user input
