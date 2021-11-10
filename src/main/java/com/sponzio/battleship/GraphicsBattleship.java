@@ -40,9 +40,7 @@ public class GraphicsBattleship {
         SetVars.setVars(frame);
         PlacePlayerShips.placePlayerShips(frame);
         placeCompShips();
-        PrintArray.printArray(frame, playerShips);
-        PrintArray.printArray(frame, compShips);
-        //placeCompShips();
+        PlayerShot.playerShot(frame);
 
         // main gameplay loop
         //while (!gameDone) {
@@ -76,7 +74,7 @@ public class GraphicsBattleship {
             if (compShips[shipRow][shipCol] == 0) {
                 compShips[shipRow][shipCol] = 1;
                 // prints the location of the placed ship
-                System.out.println("The computer placed ship #" + (i+1) +"at (" + shipRow + ", " + shipCol + ")");
+                System.out.println("The computer placed ship #" + (i+1) + " at (" + shipRow + ", " + shipCol + ")");
             }
             // if there is already a ship there this decreases the iterator so that the coordinates get regenerated
             else {
@@ -85,7 +83,7 @@ public class GraphicsBattleship {
                 i--;
             }
         }
-        System.out.println("The computer has placed it's ships!"); // lets the user know this method has finished
+        System.out.println("The computer has placed its ships!"); // lets the user know this method has finished
     }
 
     static void playerShot() {

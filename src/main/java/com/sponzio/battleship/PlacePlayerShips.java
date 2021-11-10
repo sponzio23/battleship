@@ -14,10 +14,10 @@ public class PlacePlayerShips extends  JPanel implements  ActionListener{
         SpinnerNumberModel shipColModel = new SpinnerNumberModel(1, 1,
                 GraphicsBattleship.numCols, 1);
 
-        displayShipsButton = new JButton("Display player ships");
+        displayShipsButton = new JButton("Display your ships");
         displayShipsButton.setVerticalTextPosition(AbstractButton.CENTER);
         displayShipsButton.setHorizontalTextPosition(AbstractButton.LEADING); //aka LEFT, for left-to-right locales
-        displayShipsButton.setActionCommand("display");
+        displayShipsButton.setActionCommand("displayShips");
         displayShipsButton.addActionListener(new PlacePlayerShips());
 
         for (int i = 0; i < GraphicsBattleship.numShips; i++) {
@@ -28,12 +28,12 @@ public class PlacePlayerShips extends  JPanel implements  ActionListener{
 
             Object[] shipPlacementsMessage = {
                     "   Ship Row (1-" + GraphicsBattleship.numRows + "):", shipRowChooser,
-                    "   Number of Columns (1-" + GraphicsBattleship.numCols + "):", shipColChooser,
+                    "   Ship Column (1-" + GraphicsBattleship.numCols + "):", shipColChooser,
                     displayShipsButton
             };
 
-            JOptionPane.showMessageDialog(inputFrame, shipPlacementsMessage, "Place Ship #" + (i + 1),
-                    JOptionPane.PLAIN_MESSAGE, null);
+            JOptionPane.showMessageDialog(inputFrame, shipPlacementsMessage, "Place ship " + (i + 1) +
+                    " of " + GraphicsBattleship.numShips, JOptionPane.PLAIN_MESSAGE, null);
 
             int shipRow = (int) shipRowChooser.getValue();
             int shipCol = (int) shipColChooser.getValue();
@@ -50,7 +50,7 @@ public class PlacePlayerShips extends  JPanel implements  ActionListener{
         }
     }
     public void actionPerformed(ActionEvent e) {
-        if ("display".equals(e.getActionCommand())) {
+        if ("displayShips".equals(e.getActionCommand())) {
             PrintArray.printArray(GraphicsBattleship.frame, GraphicsBattleship.playerShips);
         }
     }
