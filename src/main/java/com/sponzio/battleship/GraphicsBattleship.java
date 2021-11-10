@@ -12,8 +12,6 @@ public class GraphicsBattleship {
     public static int numShots;
 
     // initializing various scanners for different places that require input
-    public static Scanner varScanner = new Scanner(System.in);
-    public static Scanner placeScanner = new Scanner(System.in);
     public static Scanner shotScanner = new Scanner(System.in);
 
     // initializing the 2d arrays for the boards and ships
@@ -28,9 +26,10 @@ public class GraphicsBattleship {
     public static boolean gameDone = false;
     public static String winner = null;
 
+    public static JFrame frame = new JFrame();
+
     public static void main(String[] args) {
         // create the frame for the game
-        JFrame frame = new JFrame();
         frame.pack();
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
@@ -40,7 +39,9 @@ public class GraphicsBattleship {
         rules.rulesDialogue(frame);
         SetVars.setVars(frame);
         PlacePlayerShips.placePlayerShips(frame);
+        placeCompShips();
         PrintArray.printArray(frame, playerShips);
+        PrintArray.printArray(frame, compShips);
         //placeCompShips();
 
         // main gameplay loop
