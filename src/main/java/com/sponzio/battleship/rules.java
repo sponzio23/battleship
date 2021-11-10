@@ -8,7 +8,7 @@ public class rules {
             "A question mark");
 
     // method to create the rules dialogue
-    public static void rulesDialogue(JFrame inputFrame) {
+    public static void rulesDialogue() {
         boolean rulesDone = false;
         String rulesText =
                 """
@@ -51,18 +51,18 @@ public class rules {
                         """;
 
         while (!rulesDone) {
-            int rulesChoice = JOptionPane.showOptionDialog(inputFrame, "Would you like to hear the rules?",
-                    null, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
-                    questionIcon, null, null);
+            int rulesChoice = JOptionPane.showOptionDialog(GraphicsBattleship.frame,
+                    "Would you like to hear the rules?", null, JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE, questionIcon, null, null);
             if (rulesChoice == 0) {
-                JOptionPane.showMessageDialog(inputFrame, rulesText, "Battleship Rules", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(GraphicsBattleship.frame, rulesText, "Battleship Rules",
+                        JOptionPane.PLAIN_MESSAGE);
                 rulesDone = true;
             } else if (rulesChoice == 1) {
                 rulesDone = true;
             } else if (rulesChoice == -1) {
-                JOptionPane.showMessageDialog(inputFrame,
-                        "Please choose yes or no.", null,
-                        JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(GraphicsBattleship.frame, "Please choose yes or no.",
+                        null, JOptionPane.ERROR_MESSAGE);
             }
         }
     }

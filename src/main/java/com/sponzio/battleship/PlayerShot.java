@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 public class PlayerShot extends  JPanel implements  ActionListener{
     protected static JButton displayBoardButton;
 
-    public static void playerShot(JFrame inputFrame) {
+    public static void playerShot() {
         SpinnerNumberModel shotRowModel = new SpinnerNumberModel(1, 1,
                 GraphicsBattleship.numRows, 1);
         SpinnerNumberModel shotColModel = new SpinnerNumberModel(1, 1,
@@ -31,7 +31,7 @@ public class PlayerShot extends  JPanel implements  ActionListener{
                     displayBoardButton
             };
 
-            JOptionPane.showMessageDialog(inputFrame, playerShotMessage, "Take shot " + (i + 1) +
+            JOptionPane.showMessageDialog(GraphicsBattleship.frame, playerShotMessage, "Take shot " + (i + 1) +
                             " of " + GraphicsBattleship.numShots, JOptionPane.PLAIN_MESSAGE, null);
 
             int shotRow = (int) shotRowChooser.getValue();
@@ -39,17 +39,17 @@ public class PlayerShot extends  JPanel implements  ActionListener{
 
             if (GraphicsBattleship.playerBoard[shotCol - 1][shotRow - 1] == 2 ||
                     GraphicsBattleship.playerBoard[shotCol - 1][shotRow - 1] == 3) {
-                JOptionPane.showMessageDialog(inputFrame,
+                JOptionPane.showMessageDialog(GraphicsBattleship.frame,
                         "That location has already been shot at, please choose a different location.",
                         null, JOptionPane.ERROR_MESSAGE);
                 i--;
             } else {
-                JOptionPane.showMessageDialog(inputFrame,
+                JOptionPane.showMessageDialog(GraphicsBattleship.frame,
                         "Fired shot #" + (i + 1) + " at (" + shotRow + ", " + shotCol + ")",
                         null, JOptionPane.PLAIN_MESSAGE);
 
                 if (GraphicsBattleship.compShips[shotRow - 1][shotCol - 1] == 1) {
-                    JOptionPane.showMessageDialog(inputFrame,
+                    JOptionPane.showMessageDialog(GraphicsBattleship.frame,
                             "HIT!!!",
                             null, JOptionPane.PLAIN_MESSAGE);
                     GraphicsBattleship.playerHits++;
@@ -57,7 +57,7 @@ public class PlayerShot extends  JPanel implements  ActionListener{
                     GraphicsBattleship.playerBoard[shotRow - 1][shotCol - 1] = 3;
 
                 } else {
-                    JOptionPane.showMessageDialog(inputFrame,
+                    JOptionPane.showMessageDialog(GraphicsBattleship.frame,
                             "You missed, sorry.",
                             null, JOptionPane.PLAIN_MESSAGE);
                     GraphicsBattleship.compShips[shotRow - 1][shotCol - 1] = 2;
@@ -69,7 +69,7 @@ public class PlayerShot extends  JPanel implements  ActionListener{
     }
     public void actionPerformed(ActionEvent e) {
         if ("displayBoard".equals(e.getActionCommand())) {
-            PrintArray.printArray(GraphicsBattleship.frame, GraphicsBattleship.playerBoard);
+            PrintArray.printArray(GraphicsBattleship.playerBoard);
         }
     }
 }

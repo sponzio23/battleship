@@ -36,11 +36,11 @@ public class GraphicsBattleship {
         frame.setVisible(true);
 
         // setup methods that don't get repeated
-        rules.rulesDialogue(frame);
-        SetVars.setVars(frame);
-        PlacePlayerShips.placePlayerShips(frame);
+        rules.rulesDialogue();
+        SetVars.setVars();
+        PlacePlayerShips.placePlayerShips();
         placeCompShips();
-        PlayerShot.playerShot(frame);
+        PlayerShot.playerShot();
 
         // main gameplay loop
         //while (!gameDone) {

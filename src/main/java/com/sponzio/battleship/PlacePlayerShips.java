@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 public class PlacePlayerShips extends  JPanel implements  ActionListener{
     protected static JButton displayShipsButton;
 
-    public static void placePlayerShips(JFrame inputFrame) {
+    public static void placePlayerShips() {
         SpinnerNumberModel shipRowModel = new SpinnerNumberModel(1, 1,
                 GraphicsBattleship.numRows, 1);
         SpinnerNumberModel shipColModel = new SpinnerNumberModel(1, 1,
@@ -32,14 +32,14 @@ public class PlacePlayerShips extends  JPanel implements  ActionListener{
                     displayShipsButton
             };
 
-            JOptionPane.showMessageDialog(inputFrame, shipPlacementsMessage, "Place ship " + (i + 1) +
+            JOptionPane.showMessageDialog(GraphicsBattleship.frame, shipPlacementsMessage, "Place ship " + (i + 1) +
                     " of " + GraphicsBattleship.numShips, JOptionPane.PLAIN_MESSAGE, null);
 
             int shipRow = (int) shipRowChooser.getValue();
             int shipCol = (int) shipColChooser.getValue();
 
             if (GraphicsBattleship.playerShips[shipCol - 1][shipRow - 1] == 1) {
-                JOptionPane.showMessageDialog(inputFrame,
+                JOptionPane.showMessageDialog(GraphicsBattleship.frame,
                         "That location already contains a ship, please choose a different location.",
                         null, JOptionPane.ERROR_MESSAGE);
                 i--;
@@ -51,7 +51,7 @@ public class PlacePlayerShips extends  JPanel implements  ActionListener{
     }
     public void actionPerformed(ActionEvent e) {
         if ("displayShips".equals(e.getActionCommand())) {
-            PrintArray.printArray(GraphicsBattleship.frame, GraphicsBattleship.playerShips);
+            PrintArray.printArray(GraphicsBattleship.playerShips);
         }
     }
 }

@@ -3,12 +3,12 @@ package src.main.java.com.sponzio.battleship;
 import javax.swing.*;
 
 public class SetVars {
-    public static void setVars(JFrame inputFrame) {
+    public static void setVars() {
         Icon questionIcon = GraphicsBattleship.createImageIcon("/src/main/resources/question.png", "A question mark");
 
         boolean varsDone = false;
         while (!varsDone) {
-            int defaultVarsChoice = JOptionPane.showOptionDialog(inputFrame,
+            int defaultVarsChoice = JOptionPane.showOptionDialog(GraphicsBattleship.frame,
                     "Would you like to use the default variables?",
                     null, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
                     questionIcon, null, null);
@@ -35,8 +35,8 @@ public class SetVars {
                         "   Number of Columns (1-20):", colsChooser,
                 };
 
-                JOptionPane.showMessageDialog(inputFrame, firstVarsChoiceMessage, "Choose Variables (Part 1/2)",
-                        JOptionPane.PLAIN_MESSAGE, null);
+                JOptionPane.showMessageDialog(GraphicsBattleship.frame, firstVarsChoiceMessage,
+                        "Choose Variables (Part 1/2)", JOptionPane.PLAIN_MESSAGE, null);
                 GraphicsBattleship.numRows = (int) rowsChooser.getValue();
                 GraphicsBattleship.numCols = (int) colsChooser.getValue();
 
@@ -58,8 +58,8 @@ public class SetVars {
                         "   Number of Shots (1-" + numSlots + "):", shotsChooser,
                 };
 
-                JOptionPane.showMessageDialog(inputFrame, secondVarsChoiceMessage, "Choose Variables (Part 2/2)",
-                        JOptionPane.PLAIN_MESSAGE, null);
+                JOptionPane.showMessageDialog(GraphicsBattleship.frame, secondVarsChoiceMessage,
+                        "Choose Variables (Part 2/2)", JOptionPane.PLAIN_MESSAGE, null);
                 GraphicsBattleship.numShips = (int) shipsChooser.getValue();
                 GraphicsBattleship.numShots = (int) shotsChooser.getValue();
 
@@ -70,7 +70,7 @@ public class SetVars {
                 }
 
             else if (defaultVarsChoice == -1) {
-                JOptionPane.showMessageDialog(inputFrame,
+                JOptionPane.showMessageDialog(GraphicsBattleship.frame,
                         "Please choose yes or no.", null,
                         JOptionPane.ERROR_MESSAGE);
             }
