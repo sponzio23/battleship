@@ -1,18 +1,17 @@
 package src.main.java.com.sponzio.battleship;
 
 import javax.swing.*;
-import java.util.Scanner;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class GraphicsBattleship {
+public class GraphicsBattleship implements ActionListener {
     // initializing variables to be defined later
     public static int numRows;
     public static int numCols;
     public static int numShips;
     public static int numShots;
-
-    // initializing various scanners for different places that require input
-    public static Scanner shotScanner = new Scanner(System.in);
 
     // initializing the 2d arrays for the boards and ships
     public static int[][] playerBoard;
@@ -28,29 +27,29 @@ public class GraphicsBattleship {
 
     public static JFrame frame = new JFrame();
 
+    public static JButton startButton = new JButton("Start the game");
+    public static JButton startPlayerShot = new JButton("Take your shot");
+
     public static void main(String[] args) {
-        // create the frame for the game
+        // define various buttons
+        startButton.setVerticalTextPosition(AbstractButton.CENTER);
+        startButton.setHorizontalTextPosition(AbstractButton.CENTER);
+        startButton.setActionCommand("startGame");
+        startButton.addActionListener(new GraphicsBattleship());
+
+        startPlayerShot.setVerticalTextPosition(AbstractButton.CENTER);
+        startPlayerShot.setHorizontalTextPosition(AbstractButton.CENTER);
+        startPlayerShot.setActionCommand("startShots");
+        startPlayerShot.addActionListener(new GraphicsBattleship());
+
+        // TODO add padding to this
+        frame.add(startButton, BorderLayout.PAGE_END);
+        frame.add(new JLabel("Welcome to Battleship!"), BorderLayout.PAGE_START);
+
         frame.pack();
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-
-        // setup methods that don't get repeated
-        rules.rulesDialogue();
-        SetVars.setVars();
-        PlacePlayerShips.placePlayerShips();
-        placeCompShips();
-        PlayerShot.playerShot();
-
-        // main gameplay loop
-        while (!gameDone) {
-            playerShot();
-            if (gameDone){break;}
-            compShot();
-        }
-        System.out.println("The winner is the " + winner);
-        frame.dispose();
-        System.exit(0);
     }
 
     // a method that randomly places the computer's ships
@@ -74,65 +73,6 @@ public class GraphicsBattleship {
             }
         }
         System.out.println("The computer has placed its ships!"); // lets the user know this method has finished
-    }
-
-    static void playerShot() {
-        System.out.println("It is your turn to shoot! You have " + numShots + " shots.");
-        // a loop that is run once for each ship
-        for (int i = 0; i < numShots; i++) {
-            System.out.println("Take shot #" + (i + 1) + " by entering a row. This value must be between 0 and "
-                    + (numRows - 1) + "."); // prompt for user input
-            // checks if input is an integer and returns an error if it's not
-            while (!shotScanner.hasNextInt()) {
-                System.out.println("Please enter a number.");
-                shotScanner.next();
-            }
-            int shotRow = Math.abs(shotScanner.nextInt()); // sets the row of the shot to the user input
-
-            // this section is the same as the one above but with different variables
-            System.out.println("Take shot #" + (i + 1) + " by entering a column. This value must be between 0 and "
-                    + (numCols - 1) + ".");
-            while (!shotScanner.hasNextInt()) {
-                System.out.println("Please enter a number.");
-                shotScanner.next();
-            }
-            int shotCol = Math.abs(shotScanner.nextInt());
-
-            // decreases the iterator and prints an error if either user input is too large
-            if (shotCol > (numCols - 1) || shotRow > (numRows - 1)) {
-                System.out.println("Failed to take shot. One or both of your values is/are either too large " +
-                        "or small. Please try again.");
-                i--;
-            }
-            // decreases the iterator and prints an error if the chosen location has already been shot at
-            else if (playerShips[shotRow][shotCol] == 2 || playerShips[shotRow][shotCol] == 3) {
-                System.out.println("Failed to take shot. That location has already been shot at. Please try again.");
-                i--;
-            }
-            // if player input is valid
-            else {
-                // prints the shot
-                System.out.println("Fired shot #" + (i + 1) + " at (" + shotRow + ", " + shotCol + ")");
-                // checks if there is a ship at the location
-                if (compShips[shotRow][shotCol] == 1) {
-                    System.out.println("HIT!!!"); // informs the user of the hit
-                    playerHits++; // increases the number of hits
-                    // sets the locations on the arrays to indicate a hit
-                    compShips[shotRow][shotCol] = 3;
-                    playerBoard[shotRow][shotCol] = 3;
-                } else {
-                    // informs the user and sets the locations on the arrays to indicate a miss
-                    System.out.println("You missed, sorry.");
-                    compShips[shotRow][shotCol] = 2;
-                    playerBoard[shotRow][shotCol] = 2;
-                }
-            }
-        // checks if the game has been won after each shot
-        checkWin();
-        if (gameDone){
-            break;
-        }
-        }
     }
 
     static void compShot() {
@@ -190,6 +130,33 @@ public class GraphicsBattleship {
         else{
             // makes sure the main game loop is not broken
             gameDone = false;
+        }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if ("startGame".equals(e.getActionCommand())) {
+            frame.remove(startButton);
+            frame.repaint();
+            rules.rulesDialogue();
+            SetVars.setVars();
+            PlacePlayerShips.placePlayerShips();
+            placeCompShips();
+
+            frame.add(startPlayerShot, BorderLayout.PAGE_END);
+            frame.revalidate();
+            frame.repaint();
+        }
+        else if ("startShots".equals(e.getActionCommand())){
+            // main gameplay loop
+            while (!gameDone) {
+                PlayerShot.playerShot();
+                if (gameDone){break;}
+                compShot();
+            }
+            System.out.println("The winner is the " + winner);
+            frame.dispose();
+            System.exit(0);
         }
     }
 }
