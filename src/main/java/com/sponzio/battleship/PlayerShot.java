@@ -37,8 +37,8 @@ public class PlayerShot extends  JPanel implements  ActionListener{
             int shotRow = (int) shotRowChooser.getValue();
             int shotCol = (int) shotColChooser.getValue();
 
-            if (GraphicsBattleship.playerBoard[shotCol - 1][shotRow - 1] == 2 ||
-                    GraphicsBattleship.playerBoard[shotCol - 1][shotRow - 1] == 3) {
+            if (GraphicsBattleship.playerBoard[shotRow - 1][shotCol - 1] == 2 ||
+                    GraphicsBattleship.playerBoard[shotRow - 1][shotCol - 1] == 3) {
                 JOptionPane.showMessageDialog(GraphicsBattleship.frame,
                         "That location has already been shot at, please choose a different location.",
                         null, JOptionPane.ERROR_MESSAGE);
@@ -53,7 +53,6 @@ public class PlayerShot extends  JPanel implements  ActionListener{
                             "HIT!!!",
                             null, JOptionPane.PLAIN_MESSAGE);
                     GraphicsBattleship.playerHits++;
-                    GraphicsBattleship.compShips[shotRow - 1][shotCol - 1] = 3;
                     GraphicsBattleship.playerBoard[shotRow - 1][shotCol - 1] = 3;
 
                 } else {
