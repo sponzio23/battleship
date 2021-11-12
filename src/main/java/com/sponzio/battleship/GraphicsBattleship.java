@@ -28,25 +28,31 @@ public class GraphicsBattleship implements ActionListener {
     public static JFrame frame = new JFrame();
 
     public static JButton startButton = new JButton("Start the game");
-    public static JButton startPlayerShot = new JButton("Take your shot");
+    public static JButton varsButton = new JButton("Set the game's variables");
+    public static JButton compShipsButton = new JButton("Let the computer place its ships");
+    public static JButton playerShipsButton = new JButton("Place your ships");
+    public static JButton mainLoopButton = new JButton("Begin taking turns taking shots");
+    public static JButton finishButton = new JButton("End the game");
 
     public static void main(String[] args) {
-        // define various buttons
-        startButton.setVerticalTextPosition(AbstractButton.CENTER);
-        startButton.setHorizontalTextPosition(AbstractButton.CENTER);
-        startButton.setActionCommand("startGame");
-        startButton.addActionListener(new GraphicsBattleship());
 
-        startPlayerShot.setVerticalTextPosition(AbstractButton.CENTER);
-        startPlayerShot.setHorizontalTextPosition(AbstractButton.CENTER);
-        startPlayerShot.setActionCommand("startShots");
-        startPlayerShot.addActionListener(new GraphicsBattleship());
+        JButton[] buttons = {startButton, varsButton, compShipsButton, playerShipsButton, mainLoopButton, finishButton};
+        String[] buttonCommands = {"startGame", "setVars", "placeCompShips", "placePLayerShips", "mainLoop", "finish"};
+        int i = 0;
+        for(JButton buttonIndex : buttons){
+            buttonIndex.setVerticalTextPosition(AbstractButton.CENTER);
+            buttonIndex.setHorizontalTextPosition(AbstractButton.CENTER);
+            buttonIndex.setActionCommand(buttonCommands[i]);
+            buttonIndex.addActionListener(new GraphicsBattleship());
+            i++;
+        }
 
         // TODO add padding to this
         frame.add(startButton, BorderLayout.PAGE_END);
-        frame.add(new JLabel("Welcome to Battleship!"), BorderLayout.PAGE_START);
+        frame.add(new JLabel("<HTML> <H1> Welcome to Battleship! </H1> </HTML>", SwingConstants.CENTER), BorderLayout.PAGE_START);
 
-        frame.pack();
+        frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        frame.setSize(300, 100);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
@@ -139,21 +145,61 @@ public class GraphicsBattleship implements ActionListener {
             frame.remove(startButton);
             frame.repaint();
             rules.rulesDialogue();
-            SetVars.setVars();
-            PlacePlayerShips.placePlayerShips();
-            placeCompShips();
 
-            frame.add(startPlayerShot, BorderLayout.PAGE_END);
+            frame.add(varsButton, BorderLayout.PAGE_END);
             frame.revalidate();
             frame.repaint();
         }
-        else if ("startShots".equals(e.getActionCommand())){
-            // main gameplay loop
+
+        else if ("setVars".equals(e.getActionCommand())) {
+            frame.remove(varsButton);
+            frame.repaint();
+
+            SetVars.setVars();
+
+            frame.add(compShipsButton, BorderLayout.PAGE_END);
+            frame.revalidate();
+            frame.repaint();
+        }
+
+        else if ("placeCompShips".equals(e.getActionCommand())) {
+            frame.remove(compShipsButton);
+            frame.repaint();
+            placeCompShips();
+
+            frame.add(playerShipsButton, BorderLayout.PAGE_END);
+            frame.revalidate();
+            frame.repaint();
+        }
+
+        else if ("placePLayerShips".equals(e.getActionCommand())){
+            frame.remove(playerShipsButton);
+            frame.repaint();
+            PlacePlayerShips.placePlayerShips();
+
+            frame.add(mainLoopButton, BorderLayout.PAGE_END);
+            frame.revalidate();
+            frame.repaint();
+        }
+
+        else if ("mainLoop".equals(e.getActionCommand())) {
+            frame.remove(mainLoopButton);
+            frame.repaint();
+
             while (!gameDone) {
                 PlayerShot.playerShot();
                 if (gameDone){break;}
                 compShot();
             }
+
+            frame.add(finishButton, BorderLayout.PAGE_END);
+            frame.revalidate();
+            frame.repaint();
+        }
+        else if ("finish".equals(e.getActionCommand())) {
+            frame.remove(finishButton);
+            frame.repaint();
+
             System.out.println("The winner is the " + winner);
             frame.dispose();
             System.exit(0);
