@@ -139,52 +139,46 @@ public class GraphicsBattleship implements ActionListener {
         }
     }
 
+    static void addToFeed(Component input){
+        frame.add(input, BorderLayout.PAGE_END);
+        frame.revalidate();
+        frame.repaint();
+    }
+
+    static void removeFromFeed(Component input){
+        frame.remove(input);
+        frame.revalidate();
+        frame.repaint();
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if ("startGame".equals(e.getActionCommand())) {
-            frame.remove(startButton);
-            frame.repaint();
+            removeFromFeed(startButton);
             rules.rulesDialogue();
-
-            frame.add(varsButton, BorderLayout.PAGE_END);
-            frame.revalidate();
-            frame.repaint();
+            addToFeed(varsButton);
         }
 
         else if ("setVars".equals(e.getActionCommand())) {
-            frame.remove(varsButton);
-            frame.repaint();
-
+            removeFromFeed(varsButton);
             SetVars.setVars();
-
-            frame.add(compShipsButton, BorderLayout.PAGE_END);
-            frame.revalidate();
-            frame.repaint();
+            addToFeed(compShipsButton);
         }
 
         else if ("placeCompShips".equals(e.getActionCommand())) {
-            frame.remove(compShipsButton);
-            frame.repaint();
+            removeFromFeed(compShipsButton);
             placeCompShips();
-
-            frame.add(playerShipsButton, BorderLayout.PAGE_END);
-            frame.revalidate();
-            frame.repaint();
+            addToFeed(playerShipsButton);
         }
 
         else if ("placePLayerShips".equals(e.getActionCommand())){
-            frame.remove(playerShipsButton);
-            frame.repaint();
+            removeFromFeed(playerShipsButton);
             PlacePlayerShips.placePlayerShips();
-
-            frame.add(mainLoopButton, BorderLayout.PAGE_END);
-            frame.revalidate();
-            frame.repaint();
+            addToFeed(mainLoopButton);
         }
 
         else if ("mainLoop".equals(e.getActionCommand())) {
-            frame.remove(mainLoopButton);
-            frame.repaint();
+            removeFromFeed(mainLoopButton);
 
             while (!gameDone) {
                 PlayerShot.playerShot();
@@ -192,13 +186,10 @@ public class GraphicsBattleship implements ActionListener {
                 compShot();
             }
 
-            frame.add(finishButton, BorderLayout.PAGE_END);
-            frame.revalidate();
-            frame.repaint();
+            addToFeed(finishButton);
         }
         else if ("finish".equals(e.getActionCommand())) {
-            frame.remove(finishButton);
-            frame.repaint();
+            removeFromFeed(finishButton);
 
             System.out.println("The winner is the " + winner);
             frame.dispose();
