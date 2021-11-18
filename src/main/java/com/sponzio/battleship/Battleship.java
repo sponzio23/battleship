@@ -46,7 +46,6 @@ public class Battleship implements ActionListener {
             i++;
         }
 
-        // TODO add padding to this
         frame.add(startButton, BorderLayout.PAGE_END);
         frame.add(new JLabel("<HTML> <H1> Welcome to Battleship! </H1> </HTML>", SwingConstants.CENTER), BorderLayout.PAGE_START);
 
@@ -67,40 +66,30 @@ public class Battleship implements ActionListener {
             // places a ship at the randomly generated coordinates if there isn't already one there
             if (compShips[shipRow][shipCol] == 0) {
                 compShips[shipRow][shipCol] = 1;
-                // prints the location of the placed ship
-                //System.out.println("The computer placed ship #" + (i+1) + " at (" + shipRow + ", " + shipCol + ")");
             }
             // if there is already a ship there this decreases the iterator so that the coordinates get regenerated
             else {
-                // prints an error
-                //System.out.println("The computer failed to place ship #" + (i+1) + ".");
                 i--;
             }
         }
-        //System.out.println("The computer has placed its ships!"); // lets the user know this method has finished
         JOptionPane.showMessageDialog(Battleship.frame, "The computer's ships have been placed",
                 null, JOptionPane.PLAIN_MESSAGE);
     }
 
     static void compShot() {
-        //System.out.println("It's the computer's turn to shoot!");
         // a loop that is run once for each ship
         String didCompShotHit;
         for (int i = 0; i < numShots; i++) {
             // sets the row and column of the shot to a random number between 0 and the number of rows/columns
             int shotRow = ThreadLocalRandom.current().nextInt(0, numRows);
             int shotCol = ThreadLocalRandom.current().nextInt(0, numCols);
-            // decreases the iterator if the location has been shot at before and prints an error if debug mode is on
+            // decreases the iterator if the location has been shot at before
             if (playerShips[shotRow][shotCol] == 2 || playerShips[shotRow][shotCol] == 3) {
-                //System.out.println("Shot failed.");
                 i--;
             }
             else {
-                // prints the shot
-                //System.out.println("The computer fired shot #" + (i + 1) + " at (" + shotRow + ", " + shotCol + ")");
                 // checks if there is a ship at the location
                 if (playerShips[shotRow][shotCol] == 1) {
-                    //System.out.println("HIT!!!"); // informs the user of the hit
                     didCompShotHit = "hit!";
                     compHits++; // increases the number of hits
                     // sets the locations on the arrays to indicate a hit
@@ -110,7 +99,6 @@ public class Battleship implements ActionListener {
                     // informs the user and sets the locations on the arrays to indicate a miss
                     playerShips[shotRow][shotCol] = 2;
                     compBoard[shotRow][shotCol] = 2;
-                    //System.out.println("The computer missed!");
                     didCompShotHit = "missed.";
                 }
                 JOptionPane.showMessageDialog(Battleship.frame,
