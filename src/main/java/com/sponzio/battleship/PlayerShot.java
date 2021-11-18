@@ -9,9 +9,9 @@ public class PlayerShot extends  JPanel implements  ActionListener{
 
     public static void playerShot() {
         SpinnerNumberModel shotRowModel = new SpinnerNumberModel(1, 1,
-                GraphicsBattleship.numRows, 1);
+                Battleship.numRows, 1);
         SpinnerNumberModel shotColModel = new SpinnerNumberModel(1, 1,
-                GraphicsBattleship.numCols, 1);
+                Battleship.numCols, 1);
 
         displayBoardButton = new JButton("Display your board");
         displayBoardButton.setVerticalTextPosition(AbstractButton.CENTER);
@@ -19,56 +19,56 @@ public class PlayerShot extends  JPanel implements  ActionListener{
         displayBoardButton.setActionCommand("displayBoard");
         displayBoardButton.addActionListener(new PlayerShot());
 
-        for (int i = 0; i < GraphicsBattleship.numShips; i++) {
+        for (int i = 0; i < Battleship.numShips; i++) {
             JSpinner shotRowChooser = new JSpinner(shotRowModel);
             JSpinner shotColChooser = new JSpinner(shotColModel);
             shotRowChooser.setEditor(new JSpinner.DefaultEditor(shotRowChooser));
             shotColChooser.setEditor(new JSpinner.DefaultEditor(shotColChooser));
 
             Object[] playerShotMessage = {
-                    "   Shot Row (1-" + GraphicsBattleship.numRows + "):", shotRowChooser,
-                    "   Shot Column (1-" + GraphicsBattleship.numCols + "):", shotColChooser,
+                    "   Shot Row (1-" + Battleship.numRows + "):", shotRowChooser,
+                    "   Shot Column (1-" + Battleship.numCols + "):", shotColChooser,
                     displayBoardButton
             };
 
-            JOptionPane.showMessageDialog(GraphicsBattleship.frame, playerShotMessage, "Take shot " + (i + 1) +
-                            " of " + GraphicsBattleship.numShots, JOptionPane.PLAIN_MESSAGE, null);
+            JOptionPane.showMessageDialog(Battleship.frame, playerShotMessage, "Take shot " + (i + 1) +
+                            " of " + Battleship.numShots, JOptionPane.PLAIN_MESSAGE, null);
 
             int shotRow = (int) shotRowChooser.getValue();
             int shotCol = (int) shotColChooser.getValue();
+            String didPlayerShotHit;
 
-            if (GraphicsBattleship.playerBoard[shotRow - 1][shotCol - 1] == 2 ||
-                    GraphicsBattleship.playerBoard[shotRow - 1][shotCol - 1] == 3) {
-                JOptionPane.showMessageDialog(GraphicsBattleship.frame,
+            if (Battleship.playerBoard[shotRow - 1][shotCol - 1] == 2 ||
+                    Battleship.playerBoard[shotRow - 1][shotCol - 1] == 3) {
+                JOptionPane.showMessageDialog(Battleship.frame,
                         "That location has already been shot at, please choose a different location.",
                         null, JOptionPane.ERROR_MESSAGE);
                 i--;
             } else {
-                JOptionPane.showMessageDialog(GraphicsBattleship.frame,
-                        "Fired shot #" + (i + 1) + " at (" + shotRow + ", " + shotCol + ")",
-                        null, JOptionPane.PLAIN_MESSAGE);
 
-                if (GraphicsBattleship.compShips[shotRow - 1][shotCol - 1] == 1) {
-                    JOptionPane.showMessageDialog(GraphicsBattleship.frame,
-                            "HIT!!!",
-                            null, JOptionPane.PLAIN_MESSAGE);
-                    GraphicsBattleship.playerHits++;
-                    GraphicsBattleship.playerBoard[shotRow - 1][shotCol - 1] = 3;
+                if (Battleship.compShips[shotRow - 1][shotCol - 1] == 1) {
+                    didPlayerShotHit = "hit!";
+                    Battleship.playerHits++;
+                    Battleship.playerBoard[shotRow - 1][shotCol - 1] = 3;
 
                 } else {
-                    JOptionPane.showMessageDialog(GraphicsBattleship.frame,
-                            "You missed, sorry.",
-                            null, JOptionPane.PLAIN_MESSAGE);
-                    GraphicsBattleship.compShips[shotRow - 1][shotCol - 1] = 2;
-                    GraphicsBattleship.playerBoard[shotRow - 1][shotCol - 1] = 2;
+                    didPlayerShotHit = "missed.";
+                    Battleship.compShips[shotRow - 1][shotCol - 1] = 2;
+                    Battleship.playerBoard[shotRow - 1][shotCol - 1] = 2;
                 }
+                JOptionPane.showMessageDialog(Battleship.frame,
+                        "You fired shot #" + (i + 1) + " at (" + shotRow + ", " + shotCol + ") and " +
+                                didPlayerShotHit + "\nThe computer has " +
+                                (Battleship.numShips - Battleship.playerHits)+ " ships remaining."
+                        , null, JOptionPane.PLAIN_MESSAGE);
             }
-            GraphicsBattleship.checkWin();
+            Battleship.checkWin();
+            if (Battleship.gameDone) {break;}
         }
     }
     public void actionPerformed(ActionEvent e) {
         if ("displayBoard".equals(e.getActionCommand())) {
-            PrintArray.printArray(GraphicsBattleship.playerBoard);
+            PrintArray.printArray(Battleship.playerBoard);
         }
     }
 }

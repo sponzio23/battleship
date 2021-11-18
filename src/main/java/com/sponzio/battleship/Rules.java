@@ -2,7 +2,7 @@ package src.main.java.com.sponzio.battleship;
 
 import javax.swing.*;
 
-public class rules {
+public class Rules {
     // import icons
     static Icon questionIcon = createImageIcon();
 
@@ -50,24 +50,24 @@ public class rules {
                         """;
 
         while (!rulesDone) {
-            int rulesChoice = JOptionPane.showOptionDialog(GraphicsBattleship.frame,
+            int rulesChoice = JOptionPane.showOptionDialog(Battleship.frame,
                     "Would you like to hear the rules?", null, JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE, questionIcon, null, null);
             if (rulesChoice == 0) {
-                JOptionPane.showMessageDialog(GraphicsBattleship.frame, rulesText, "Battleship Rules",
+                JOptionPane.showMessageDialog(Battleship.frame, rulesText, "Battleship Rules",
                         JOptionPane.PLAIN_MESSAGE);
                 rulesDone = true;
             } else if (rulesChoice == 1) {
                 rulesDone = true;
             } else if (rulesChoice == -1) {
-                JOptionPane.showMessageDialog(GraphicsBattleship.frame, "Please choose yes or no.",
+                JOptionPane.showMessageDialog(Battleship.frame, "Please choose yes or no.",
                         null, JOptionPane.ERROR_MESSAGE);
             }
         }
     }
     // method to import images as icons
     protected static ImageIcon createImageIcon() {
-        java.net.URL imgURL = rules.class.getResource("/src/main/resources/question.png");
+        java.net.URL imgURL = Rules.class.getResource("/src/main/resources/question.png");
         if (imgURL != null) {
             return new ImageIcon(imgURL, "A question mark");
         } else {

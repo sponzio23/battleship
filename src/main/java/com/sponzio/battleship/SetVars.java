@@ -8,15 +8,15 @@ public class SetVars {
 
         boolean varsDone = false;
         while (!varsDone) {
-            int defaultVarsChoice = JOptionPane.showOptionDialog(GraphicsBattleship.frame,
+            int defaultVarsChoice = JOptionPane.showOptionDialog(Battleship.frame,
                     "Would you like to use the default variables?",
                     null, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
                     questionIcon, null, null);
             if (defaultVarsChoice == 0) {
-                GraphicsBattleship.numRows = 3;
-                GraphicsBattleship.numCols = 3;
-                GraphicsBattleship.numShips = 3;
-                GraphicsBattleship.numShots = 3;
+                Battleship.numRows = 3;
+                Battleship.numCols = 3;
+                Battleship.numShips = 3;
+                Battleship.numShots = 3;
                 varsDone = true;
             }
             else if (defaultVarsChoice == 1) {
@@ -33,17 +33,17 @@ public class SetVars {
                         "   Number of Columns (1-20):", colsChooser,
                 };
 
-                JOptionPane.showMessageDialog(GraphicsBattleship.frame, firstVarsChoiceMessage,
+                JOptionPane.showMessageDialog(Battleship.frame, firstVarsChoiceMessage,
                         "Choose Variables (Part 1/2)", JOptionPane.PLAIN_MESSAGE, null);
-                GraphicsBattleship.numRows = (int) rowsChooser.getValue();
-                GraphicsBattleship.numCols = (int) colsChooser.getValue();
+                Battleship.numRows = (int) rowsChooser.getValue();
+                Battleship.numCols = (int) colsChooser.getValue();
 
-                JOptionPane.showMessageDialog(GraphicsBattleship.frame,
-                        "Number of rows set to " + GraphicsBattleship.numRows +
-                                "\n Number of columns set to " + GraphicsBattleship.numCols,
+                JOptionPane.showMessageDialog(Battleship.frame,
+                        "Number of rows set to " + Battleship.numRows +
+                                "\nNumber of columns set to " + Battleship.numCols,
                         null, JOptionPane.PLAIN_MESSAGE);
 
-                int numSlots = GraphicsBattleship.numRows * GraphicsBattleship.numCols;
+                int numSlots = Battleship.numRows * Battleship.numCols;
 
                 SpinnerNumberModel shipsSpinnerModel = new SpinnerNumberModel(1, 1, numSlots,1);
                 JSpinner shipsChooser = new JSpinner(shipsSpinnerModel);
@@ -54,37 +54,37 @@ public class SetVars {
                 shotsChooser.setEditor(new JSpinner.DefaultEditor(shotsChooser));
 
                 Object[] secondVarsChoiceMessage = {
-                        "   Number of Ships (1-" + numSlots + "):", shipsChooser,
-                        "   Number of Shots (1-" + numSlots + "):", shotsChooser,
+                        "   You set the number of Ships (1-" + numSlots + "):", shipsChooser,
+                        "   You set the number of Shots (1-" + numSlots + "):", shotsChooser,
                 };
 
-                JOptionPane.showMessageDialog(GraphicsBattleship.frame, secondVarsChoiceMessage,
+                JOptionPane.showMessageDialog(Battleship.frame, secondVarsChoiceMessage,
                         "Choose Variables (Part 2/2)", JOptionPane.PLAIN_MESSAGE, null);
-                GraphicsBattleship.numShips = (int) shipsChooser.getValue();
-                GraphicsBattleship.numShots = (int) shotsChooser.getValue();
+                Battleship.numShips = (int) shipsChooser.getValue();
+                Battleship.numShots = (int) shotsChooser.getValue();
 
-                JOptionPane.showMessageDialog(GraphicsBattleship.frame,
-                        "Number of ships set to " + GraphicsBattleship.numShips +
-                                "\n Number of shots set to " + GraphicsBattleship.numShots,
+                JOptionPane.showMessageDialog(Battleship.frame,
+                        "You set the number of ships set to " + Battleship.numShips +
+                                "\nYou set the number of shots set to " + Battleship.numShots,
                         null, JOptionPane.PLAIN_MESSAGE);
 
                 varsDone = true;
                 }
 
             else if (defaultVarsChoice == -1) {
-                JOptionPane.showMessageDialog(GraphicsBattleship.frame,
+                JOptionPane.showMessageDialog(Battleship.frame,
                         "Please choose yes or no.", null,
                         JOptionPane.ERROR_MESSAGE);
             }
         }
-        GraphicsBattleship.playerBoard = new int[GraphicsBattleship.numRows][GraphicsBattleship.numCols];
-        GraphicsBattleship.playerShips = new int[GraphicsBattleship.numRows][GraphicsBattleship.numCols];
-        GraphicsBattleship.compBoard = new int[GraphicsBattleship.numRows][GraphicsBattleship.numCols];
-        GraphicsBattleship.compShips = new int[GraphicsBattleship.numRows][GraphicsBattleship.numCols];
+        Battleship.playerBoard = new int[Battleship.numRows][Battleship.numCols];
+        Battleship.playerShips = new int[Battleship.numRows][Battleship.numCols];
+        Battleship.compBoard = new int[Battleship.numRows][Battleship.numCols];
+        Battleship.compShips = new int[Battleship.numRows][Battleship.numCols];
     }
     // method to import images as icons
     protected static ImageIcon createImageIcon() {
-        java.net.URL imgURL = rules.class.getResource("/src/main/resources/question.png");
+        java.net.URL imgURL = Rules.class.getResource("/src/main/resources/question.png");
         if (imgURL != null) {
             return new ImageIcon(imgURL, "A question mark");
         } else {

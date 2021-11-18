@@ -12,7 +12,7 @@ public class PrintArray {
             output = output.concat(Arrays.toString(row)) ;
             output = output.concat("\n");
         }
-        JOptionPane.showMessageDialog(GraphicsBattleship.frame, output, null, JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(Battleship.frame, output, null, JOptionPane.PLAIN_MESSAGE);
         // TODO: make title not null and instead the name of the inputted array
     }
 }
