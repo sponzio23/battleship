@@ -1,0 +1,30 @@
+
+major changes:
+    no need for scanners, need to be changed to dialogues
+    no need for print, need to be changed to fields maybe? or labels? idk
+    still going to use arrays, need to test if they can be printed
+
+create a window
+welcome to battleship
+check for rules, output them if selected
+
+other than inputs setVars() should be very much the same
+
+
+planning for main window:
+
+WELCOME TO BATTLESHIP
+
+Start Game Button
+    display rules dialog
+    display variables dialog
+
+Always have a button to display player board and ships
+
+It's your turn to shoot (button)
+
+It's the computer's turn to shoot
+
+
+
+
